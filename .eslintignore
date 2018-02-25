@@ -1,0 +1,5 @@
+front/*
+node_modules/*
+public/*
+test/coverage
+webpack.config.js
