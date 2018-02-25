@@ -24,6 +24,8 @@
     "babel-core": "^6.26.0",
     "koa": "^2.5.0",
     "koa-static": "^4.0.2",
+    "pg": "^7.4.1",
+    "sequelize": "^4.33.4",
     "webpack": "^3.11.0"
   },
   "devDependencies": {
