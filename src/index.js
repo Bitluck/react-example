@@ -9,6 +9,8 @@ const webpack = require('webpack');
 const port = process.env.PORT || PORT;
 const app = new Koa();
 
+const { sequelize } = require('./models');
+
 const compiler = webpack(require('../webpack.config.js'), (err, stats) => {
   if (err || stats.hasErrors()) {
     /* eslint-disable no-console */
