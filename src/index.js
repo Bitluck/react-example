@@ -4,10 +4,13 @@ const PORT = 3000;
 
 const Koa = require('koa');
 const serve = require('koa-static');
+const bodyParser = require('koa-bodyparser');
 const webpack = require('webpack');
 
 const port = process.env.PORT || PORT;
 const app = new Koa();
+
+app.use(bodyParser());
 
 const { sequelize } = require('./models');
 
@@ -26,8 +29,18 @@ app.use(session({
   )
 }, app));
 
+const passport = require('./controllers/auth').passport;
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 const responseHandler = require('./middlewares/response-handler');
 app.use(responseHandler());
+
+const router = require('./routes');
+app.use(router.middleware());
+app.use(router.routes());
+app.use(router.allowedMethods());
 
 const compiler = webpack(require('../webpack.config.js'), (err, stats) => {
   if (err || stats.hasErrors()) {
