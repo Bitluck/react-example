@@ -23,8 +23,11 @@
   "dependencies": {
     "babel-core": "^6.26.0",
     "koa": "^2.5.0",
+    "koa-generic-session-sequelize": "^1.0.9",
+    "koa-session": "^5.8.1",
     "koa-static": "^4.0.2",
     "pg": "^7.4.1",
+    "pg-hstore": "^2.3.2",
     "sequelize": "^4.33.4",
     "webpack": "^3.11.0"
   },

@@ -11,6 +11,24 @@ const app = new Koa();
 
 const { sequelize } = require('./models');
 
+const SequelizeStore = require('koa-generic-session-sequelize');
+const session = require('koa-session');
+
+app.keys = ['key1', 'key2', 'key3'];
+
+app.use(session({
+  key: 'socialnet:sess',
+  resave: true,
+  saveUninitialized: true,
+  store: new SequelizeStore(
+    sequelize,
+    {}
+  )
+}, app));
+
+const responseHandler = require('./middlewares/response-handler');
+app.use(responseHandler());
+
 const compiler = webpack(require('../webpack.config.js'), (err, stats) => {
   if (err || stats.hasErrors()) {
     /* eslint-disable no-console */
