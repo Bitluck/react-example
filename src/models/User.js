@@ -26,5 +26,14 @@ module.exports = function (sequelize) {
     freezeTableName: true
   });
 
+  User.associate = (models) => {
+    User.hasMany(models.Post, {
+      onDelete: 'cascade'
+    });
+    User.hasOne(models.Profile, {
+      onDelete: 'cascade'
+    });
+  }
+
   return User;
 };

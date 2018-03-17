@@ -1,7 +1,10 @@
 'use strict';
 
+const fs = require('fs');
+const path = require('path');
+const basename = path.basename(module.filename);
 const Sequelize = require('sequelize');
-const { assign } = Object;
+let db = {};
 
 const CONFIG = {
   user: 'db_user',
@@ -23,15 +26,25 @@ const sequelize = new Sequelize(CONFIG.database, CONFIG.user, CONFIG.password, {
   }
 });
 
-const User = require('./User')(sequelize);
-const Post = require('./Post')(sequelize);
-const Profile = require('./Profile')(sequelize);
+fs
+  .readdirSync(__dirname)
+  .filter((file) => {
+    return (file.indexOf('.') !== 0) && (file !== basename);
+  })
+  .forEach((file) => {
+    if(file.slice(-3) !== '.js') return;
+    const model = sequelize['import'](path.join(__dirname, file));
+    db[model.name] = model;
+  });
 
-User.hasMany(Post);
-User.hasOne(Profile);
+  Object.keys(db).forEach((modelName) => {
+    if(db[modelName].associate) {
+      db[modelName].associate(db);
+    }
+  });
 
-let db = {};
-assign(db, { sequelize, User, Post });
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 
 //TODO: add success check
 db.sequelize.sync();
