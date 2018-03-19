@@ -1,9 +1,9 @@
 'use strict';
 
-const { User } = require('../models');
 const bcrypt = require('bcrypt');
 const passport = require('koa-passport');
 const LocalStrategy = require('passport-local').Strategy;
+const { User } = require('../models');
 
 passport.serializeUser(async (user, done) => {
   try {
@@ -45,9 +45,10 @@ async function login(ctx, login, password, done) {
         ctx.res.notFound(null, 'Incorrect password');
         return done(null, false);
       }
+    } else {
+      ctx.res.notFound(null, 'User not found', login);
+      return done(null, false);
     }
-    ctx.res.notFound(null, 'User not found', login);
-    return done(null, false);
   } catch(err) {
     ctx.res.internalServerError();
     return done(err);
@@ -55,11 +56,8 @@ async function login(ctx, login, password, done) {
 }
 
 async function signin(ctx, next) {
-  await passport.authenticate('local.signin', (err, user, info, status) => {
-    if(err) {
-      ctx.badRequest(status, info);
-    }
-  })(ctx, next);
+  await passport.authenticate('local.signin')(ctx, next);
+  return;
 }
 
 async function signup(ctx, next) {
@@ -69,8 +67,7 @@ async function signup(ctx, next) {
     const user = await User.findOne({ where: { login } });
 
     if(user) {
-      ctx.res.badRequest(0, 'User with such login already exists');
-      next();
+      return ctx.res.badRequest(0, 'User with such login already exists');
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -83,7 +80,7 @@ async function signup(ctx, next) {
     ctx.res.created(createdUser);
     next();
   } catch(err) {
-    ctx.res.badRequest(1, err, 'Error creating new user');
+    return ctx.res.badRequest(1, 'Error creating new user');
   }
 }
 
