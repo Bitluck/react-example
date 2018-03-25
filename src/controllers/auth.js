@@ -3,19 +3,21 @@
 const bcrypt = require('bcrypt');
 const passport = require('koa-passport');
 const LocalStrategy = require('passport-local').Strategy;
-const { User } = require('../models');
+const { User, Profile } = require('../models');
+
+const SALT_ROUNDS = 10;
 
 passport.serializeUser(async (user, done) => {
   try {
-    return done(null, user.login);
+    return done(null, user.id);
   } catch(err) {
     return done(err);
   }
 });
 
-passport.deserializeUser(async (login, done) => {
+passport.deserializeUser(async (id, done) => {
   try {
-    const user = await User.findOne({ where: { login } });
+    const user = await User.findOne({ where: { id } });
     if (!user) {
       return done(null, false);
     }
@@ -34,53 +36,70 @@ passport.use('local.signin', new LocalStrategy({
 }, login));
 
 async function login(ctx, login, password, done) {
-  try {
-    const user = await User.findOne({ where: { login } });
-    if(user) {
-      const result = await bcrypt.compare(password, user.password);
-      if(result === true) {
-        ctx.res.ok();
-        return done(null, user);
-      } else {
-        ctx.res.notFound(null, 'Incorrect password');
-        return done(null, false);
-      }
+  const user = await User.findOne({ where: { login } });
+  if(user) {
+    const result = await bcrypt.compare(password, user.password);
+    if(result === true) {
+      ctx.res.ok();
+      return done(null, user);
     } else {
-      ctx.res.notFound(null, 'User not found', login);
-      return done(null, false);
+      return done('Incorrect password');
     }
-  } catch(err) {
-    ctx.res.internalServerError();
-    return done(err);
+  } else {
+    return done('User not found');
   }
 }
 
 async function signin(ctx, next) {
-  await passport.authenticate('local.signin')(ctx, next);
-  return;
+  await passport.authenticate('local.signin', async (err, user, info, status) => {
+    if(err) {
+      ctx.res.badRequest(status, err, info);
+    } else {
+      await ctx.login(user);
+      ctx.res.ok(user);
+    }
+    next();
+  })(ctx, next);
 }
 
-async function signup(ctx, next) {
+async function signup(ctx) {
   try {
-    const [login, password] = [ctx.request.body.login, ctx.request.body.password];
+    const userData = ctx.request.body;
+    const [login, password] = [userData.login, userData.password];
 
-    const user = await User.findOne({ where: { login } });
-
-    if(user) {
-      return ctx.res.badRequest(0, 'User with such login already exists');
+    if(await User.findOne({ where: { login } })) {
+      return ctx.res.badRequest(null, 'User with such login already exists');
     }
 
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(SALT_ROUNDS);
     const hashPassword = await bcrypt.hash(password, salt);
     const newUser = {
       login: login,
       password: hashPassword
     };
+
     const createdUser = await User.create(newUser);
-    ctx.res.created(createdUser);
-    next();
+    if(createdUser) {
+      const userProfile = {
+        email: userData.email,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        birthdate: new Date(userData.birthdate),
+        gender: userData.gender,
+        country: userData.country,
+        city: userData.city,
+        user_id: createdUser.id
+      }
+
+      const createdProfile = await Profile.create(userProfile);
+
+      if(createdProfile) {
+        return ctx.res.created(createdUser);
+      }
+    }
+    ctx.res.notFound();
   } catch(err) {
-    return ctx.res.badRequest(1, 'Error creating new user');
+    return ctx.res.badRequest(null, 'Error creating new user');
   }
 }
 
