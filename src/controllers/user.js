@@ -17,7 +17,7 @@ const getUserById = async ctx => {
     if(ctx.isAuthenticated()){
       result = {
         id: user.id,
-        login: user.id,
+        login: user.login,
         email: profile.email,
         firstName: profile.firstName,
         lastName: profile.lastName,
@@ -43,4 +43,28 @@ const getUserById = async ctx => {
   }
 }
 
-module.exports = { getAllUsers, getUserById };
+const updateUserProfile = async ctx => {
+  try {
+    const userData = ctx.request.body;
+
+    const userProfile = await Profile.findOne({ where: { user_id: ctx.params.id }});
+
+    const newUserProfile = {
+      firstName: userData.firstName || userProfile.firstName,
+      lastName:  userData.lastName  || userProfile.lastName,
+      birthdate: userData.birthdate || userProfile.birthdate,
+      gender:    userData.gender    || userProfile.gender,
+      country:   userData.country   || userProfile.country,
+      city:      userData.city      || userProfile.city,
+      avatar:    userData.avatar    || userProfile.avatar
+    }
+
+    const updatedUserProfile = await userProfile.update(newUserProfile);
+
+    ctx.res.ok(updatedUserProfile);
+  } catch(err) {
+    ctx.res.badRequest(null, 'User profile not update');
+  }
+}
+
+module.exports = { getAllUsers, getUserById, updateUserProfile };
