@@ -56,7 +56,14 @@ async function signin(ctx, next) {
       ctx.res.badRequest(status, err, info);
     } else {
       await ctx.login(user);
-      ctx.res.ok(user);
+
+      const userDataResponse = await {
+        id: user.id,
+        login: user.login,
+        createdAt: user.created_at,
+        updatedAt: user.updated_at
+      }
+      ctx.res.ok(userDataResponse);
     }
     next();
   })(ctx, next);
