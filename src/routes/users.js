@@ -1,9 +1,10 @@
 'use strict';
 
 const Router = require('koa-router');
+const usersController = require('../controllers/user');
+
 const authCheck = require('../middlewares/auth-check');
 const selfUser = require('../middlewares/same-user');
-const usersController = require('../controllers/user');
 
 module.exports = new Router()
   .get('/', authCheck, usersController.getAllUsers)
