@@ -23,9 +23,9 @@
   "dependencies": {
     "babel-core": "^6.26.0",
     "bcrypt": "^1.0.3",
+    "formidable": "^1.2.1",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
-    "koa-formidable": "^1.1.0",
     "koa-generic-session-sequelize": "^1.0.9",
     "koa-passport": "^4.0.1",
     "koa-router": "^7.4.0",
