@@ -23,6 +23,7 @@
   "dependencies": {
     "babel-core": "^6.26.0",
     "bcrypt": "^1.0.3",
+    "file-type": "^7.6.0",
     "formidable": "^1.2.1",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
