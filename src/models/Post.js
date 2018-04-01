@@ -4,16 +4,18 @@ const Sequelize = require('sequelize');
 
 module.exports = function (sequelize) {
   const Post = sequelize.define('Post', {
-    content: {
+    text: {
       type: Sequelize.STRING,
-      allowNull: true,
+      allowNull: false,
+      defaultValue: '',
       validate: {
         len: [0, 2048]
       }
     },
-    image: {
+    picture: {
       type: Sequelize.STRING,
       allowNull: true,
+      defaultValue: null,
       validate: {
         
       }
