@@ -1,6 +1,9 @@
 'use strict';
 
+const path = require('path');
 const { Post } = require('../models');
+
+const pictureUploadPath = '/public/img/posts';
 
 const getPostById = async ctx => {
   const postId = ctx.params.id;
@@ -14,4 +17,27 @@ const getPostById = async ctx => {
   }
 }
 
-module.exports = { getPostById };
+const createNewPost = async ctx => {
+  const { fields, files } = ctx.request.formData;
+  const { text } = fields;
+  const { picture } = files;
+  
+  const picturePath = picture ?
+                      path.join(pictureUploadPath, path.parse(picture.path).base)
+                      : null;
+
+  const post = {
+    text: text || '',
+    picture: picturePath,
+    user_id: ctx.state.user.id
+  };
+
+  try {
+    const createdPost = await Post.create(post);
+    return ctx.res.ok(createdPost);
+  } catch(err) {
+    return ctx.res.InternalServerError();
+  }
+}
+
+module.exports = { getPostById, createNewPost };
