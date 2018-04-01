@@ -23,6 +23,8 @@
   "dependencies": {
     "babel-core": "^6.26.0",
     "bcrypt": "^1.0.3",
+    "file-type": "^7.6.0",
+    "formidable": "^1.2.1",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
     "koa-generic-session-sequelize": "^1.0.9",
@@ -34,6 +36,7 @@
     "passport-local": "^1.0.0",
     "pg": "^7.4.1",
     "pg-hstore": "^2.3.2",
+    "read-chunk": "^2.1.0",
     "sequelize": "^4.33.4",
     "webpack": "^3.11.0"
   },
