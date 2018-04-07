@@ -1,12 +1,15 @@
 import React from 'react';
-import { range } from 'lodash';
+import { Provider } from 'react-redux';
 import '../styles/components/App.css';
+import LoginForm from './LoginForm';
+import Footer from './Footer';
 
 class App extends React.Component {
   render() {
     return (
       <div className='app'>
-        App Component {range(0, 10).join(', ')}
+        <LoginForm />
+        <Footer />
       </div>
     );
   }
