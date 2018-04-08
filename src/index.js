@@ -3,7 +3,6 @@
 const PORT = 3000;
 
 const Koa = require('koa');
-const serve = require('koa-static');
 const bodyParser = require('koa-bodyparser');
 const webpack = require('webpack');
 
@@ -38,7 +37,6 @@ const responseHandler = require('./middlewares/response-handler');
 app.use(responseHandler());
 
 const router = require('./routes');
-app.use(router.middleware());
 app.use(router.routes());
 app.use(router.allowedMethods());
 
@@ -60,8 +58,6 @@ compiler.watch({}, () => {
   console.log('building...');
   /* eslint-enable no-console */
 });
-
-app.use(serve('public'));
 
 app.listen(port);
 /* eslint-disable no-console */
