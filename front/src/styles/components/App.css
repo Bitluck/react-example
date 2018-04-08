@@ -6,7 +6,14 @@
 	grid-template-rows: repeat(3, 1fr);
 }
 
-.Login-Form {
+.header {
+	grid-column: 1 / -1;
+	grid-row: 1;
+
+	text-align: center;
+}
+
+.main {
 	grid-column: 2;
 	grid-row: 2;
 
@@ -22,7 +29,7 @@
 	transform-origin: 0;
 }
 
-.Footer {
+.footer {
 	grid-column: 1 / -1;
 	grid-row: 3;
 
