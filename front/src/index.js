@@ -1,10 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+
 import rootReducer from './reducers';
 import App from './components/App';
-import Root from './containers/Root';
-
-import { createStore } from 'redux';
 
 const configureStore = preloadedState => createStore(
   rootReducer,
@@ -15,6 +16,10 @@ const store = configureStore();
 
 render(
   <div>
-    <Root store={store} />
-  </div>, document.getElementById('root')
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </div>, document.getElementById('app')
 );
