@@ -1,37 +1,21 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-import { UserActions } from '../actions/userActions';
-
-const userActions = new UserActions();
 
 class UserProfile extends React.Component {
   render() {
-    const { full } = this.props;
-    console.log({ props: this.props });
+    const { isFetching, full, user } = this.props;
 
+    if(isFetching) {
+      return <div>Loading user profile...</div>
+    }
     if(full) {
       return (
-        <div>full {this.props}</div>
+        <div>{ `full ${user.data.login}` }</div>
       );
     }
     return (
-      <div>nefull {this.props}</div>
+      <div>{ `nefull ${user.data.login}` }</div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    email: state.email
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    getUser: bindActionCreators(userActions.getUser, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
+export default UserProfile;
