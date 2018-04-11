@@ -1,11 +1,10 @@
-import { AbstractService } from './AbstractService';
+import { get, post, put, del } from './BaseService';
 
-export class UserService extends AbstractService {
+export default class UserService {
   async getUser(userId) {
-    const response = await this.get(`/users/${userId}`);
-    const data = await response.json();
+    const response = await get(`/users/${userId}`);
+    const res = await response.json();
 
-    console.log({ response });
-    return { status: response.ok, data };
+    return { status: response.status, data: res.data };
   }
 }
