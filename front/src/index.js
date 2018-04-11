@@ -1,18 +1,27 @@
+import 'babel-polyfill';
+
 import React from 'react';
 import { render } from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
 import { BrowserRouter } from 'react-router-dom';
 
 import rootReducer from './reducers';
+import watchGetUserSaga from './sagas/user';
 import App from './components/App';
 
-const configureStore = preloadedState => createStore(
+const sagaMiddleware = createSagaMiddleware();
+
+const configureStore = (preloadedState = {}) => createStore(
   rootReducer,
-  preloadedState
+  preloadedState,
+  applyMiddleware(sagaMiddleware)
 );
 
 const store = configureStore();
+
+sagaMiddleware.run(watchGetUserSaga);
 
 render(
   <div>
