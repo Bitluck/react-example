@@ -1,20 +1,25 @@
-import { userActionTypes } from '../constants/userActionTypes';
 import { UserService } from '../services/UserService';
+import { USER_GET_REQUEST,
+         USER_GET_SUCCESS,
+         USER_GET_FAILED } from '../constants/userActionTypes';
 
-export class UserActions {
-  constructor() {
-    this.userService = new UserService();
+export function getUserRequest(userId) {
+  return {
+    type: USER_GET_REQUEST,
+    payload: userId
   }
-  
-  getUser(userId) {
-    return async dispatch => {
-      const response = await this.userService.getUser(userId);
-      console.log({ response1: response });
-      
-      dispatch({
-        type: userActionTypes.GET_USER,
-        payload: response.date
-      });
-    }
+}
+
+export function getUserSuccess(userData) {
+  return {
+    type: USER_GET_SUCCESS,
+    payload: userData
+  }
+}
+
+export function getUserFailed(msg) {
+  return {
+    type: USER_GET_FAILED,
+    payload: msg
   }
 }
