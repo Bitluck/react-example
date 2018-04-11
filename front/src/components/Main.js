@@ -4,13 +4,14 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import LoginForm from '../components/LoginForm';
 import UserProfile from '../components/UserProfile';
+import UserProfileContainer from '../containers/UserProfileContainer';
 import UserProfilePage from '../containers/UserProfilePage';
 
 const Main = () => (
   <div className="main">
     <Switch>
       <Route exact path="/" component={LoginForm} />
-      <Route exact path="/users/:id" component={UserProfile} />
+      <Route exact path="/users/:id" component={UserProfileContainer} />
       <Route render={(props) => <div>Note founde {props}</div>}/>
     </Switch>
   </div>
