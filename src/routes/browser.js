@@ -5,6 +5,7 @@ const serve = require('koa2-static-middleware');
 
 const staticRoutes = [
   '/',
+  '/login',
   '/users/:id'
 ];
 
