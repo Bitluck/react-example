@@ -9,10 +9,8 @@ import {
 
 const initialState = {
   user: {},
-  userData: {},
   payload: {},
-  isFetching: true,
-  full: false
+  isRequesting: true
 }
 
 export default function authReducer(state = initialState, action) {
@@ -22,8 +20,9 @@ export default function authReducer(state = initialState, action) {
     case AUTH_LOGIN_REQUEST:
       return { ...state, payload };
     case AUTH_LOGIN_SUCCESS:
-      return { ...state, payload};
+      return { ...state, payload };
     case AUTH_LOGIN_FAILED:
+      return { ...state, payload };
       return state;
     default:
       return state;
