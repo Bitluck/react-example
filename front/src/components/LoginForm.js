@@ -1,51 +1,32 @@
 import React from 'react';
-import '../styles/components/LoginForm.css';
+import { reduxForm, Field } from 'redux-form';
+import { loginRequest } from '../actions/authActions';
 
-class LoginForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { login: '', password: '' };
+const validate = values => {
+  const errors = {};
+  return errors;
+} 
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    const { name, value } = event.target;
-
-    this.setState({
-      [name]: value,
-    });
-  }
-
-  handleSubmit(event) {
-    alert(`Login: ${this.state.login}, \nPassword: ${this.state.password}`);
-    event.preventDefault();
-  }
-
-  render() {
-    return (
-      <div className="login-form">
-        <form onSubmit={this.handleSubmit}>
-          <label>Login:</label>
-          <input
-            name="login"
-            type="text"
-            value={this.state.login}
-            onChange={this.handleChange} />
-          
-          <label>Password:</label>
-          <input
-            name="password"
-            type="password"
-            value={this.state.password}
-            onChange={this.handleChange} />
-          
-          <button>Submit</button>
-        </form>
-      </div>
-    );
-  }
+let LoginForm = props => {
+  return (
+  <form onSubmit={props.handleSubmit(async values => props.dispatch(loginRequest(values)))} >
+    <div>
+      <label>Login</label>
+      <Field name="login" component="input" type="text" placeholder="Login" />
+    </div>
+    <div>
+      <label>Password</label>
+      <Field name="password" component="input" type="password" placeholder="Password" />
+    </div>
+    <button type="submit">Login</button>
+  </form>
+  );
 }
+
+LoginForm = reduxForm({
+  form: 'loginForm',
+  destroyOnUnmount: false,
+  validate
+})(LoginForm);
 
 export default LoginForm;
