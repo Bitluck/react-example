@@ -17,8 +17,6 @@ function* fetchUser(action) {
   }
 }
 
-function* watchGetUserSaga() {
+export function* watchGetUserSaga() {
   yield takeLatest(USER_GET_REQUEST, fetchUser);
 }
-
-export default watchGetUserSaga;

@@ -8,7 +8,7 @@ import createSagaMiddleware from 'redux-saga';
 import { BrowserRouter } from 'react-router-dom';
 
 import rootReducer from './reducers';
-import watchGetUserSaga from './sagas/user';
+import rootSaga from './sagas';
 import App from './components/App';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -21,7 +21,7 @@ const configureStore = (preloadedState = {}) => createStore(
 
 const store = configureStore();
 
-sagaMiddleware.run(watchGetUserSaga);
+sagaMiddleware.run(rootSaga);
 
 render(
   <div>
