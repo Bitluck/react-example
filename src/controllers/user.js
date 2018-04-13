@@ -26,6 +26,7 @@ const getUserById = async ctx => {
         country: profile.country,
         city: profile.city,
         avatar: profile.avatar,
+        full: true,
         createdAt: user.created_at,
         updatedAt: user.updated_at
       }
@@ -34,7 +35,8 @@ const getUserById = async ctx => {
         id: user.id,
         login: user.login,
         firstName: profile.firstName,
-        lastName: profile.lastName
+        lastName: profile.lastName,
+        full: false
       }
     }
     ctx.res.ok(result);
