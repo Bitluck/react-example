@@ -5,6 +5,6 @@ export default class AuthService {
     const response = await post(`/auth/signin`, loginData);
     const res = await response.json();
 
-    return { status: response.status, data: res.data };
+    return { status: response.status, data: res.data, message: res.message };
   }
 }
