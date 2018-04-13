@@ -12,7 +12,7 @@ const Main = () => (
   <div className="main">
     <Switch>
       <Route exact path="/" component={LoginForm} />
-      <Route exact path="/login" component={LoginForm} />
+      <Route exact path="/login" component={LoginFormContainer} />
       <Route exact path="/users/:id" component={UserProfileContainer} />
       <Route render={(props) => <div>Note founde {props}</div>}/>
     </Switch>

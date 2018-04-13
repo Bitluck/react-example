@@ -1,15 +1,10 @@
 import React from 'react';
-import { reduxForm, Field } from 'redux-form';
-import { loginRequest } from '../actions/authActions';
-
-const validate = values => {
-  const errors = {};
-  return errors;
-} 
+import { Field } from 'redux-form';
 
 let LoginForm = props => {
+  console.log({ props });
   return (
-  <form onSubmit={props.handleSubmit(async values => props.dispatch(loginRequest(values)))} >
+  <form onSubmit={props.handleSubmit(values => props.handleSubmitForm(values))} >
     <div>
       <label>Login</label>
       <Field name="login" component="input" type="text" placeholder="Login" />
@@ -22,11 +17,5 @@ let LoginForm = props => {
   </form>
   );
 }
-
-LoginForm = reduxForm({
-  form: 'loginForm',
-  destroyOnUnmount: false,
-  validate
-})(LoginForm);
 
 export default LoginForm;
