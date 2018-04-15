@@ -4,7 +4,7 @@ const Router = require('koa-router');
 const authRouter = require('./auth');
 const usersRouter = require('./users');
 const postsRouter = require('./posts');
-const browserRouter = require('./browser');
+const staticRouter = require('./static');
 
 const apiRouter = new Router({ prefix: '/api' })
   .use('/auth', authRouter.routes())
@@ -13,4 +13,4 @@ const apiRouter = new Router({ prefix: '/api' })
 
 module.exports = new Router()
   .use(apiRouter.routes())
-  .use(browserRouter.routes());
+  .use(staticRouter.routes());

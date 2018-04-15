@@ -36,6 +36,9 @@ app.use(passport.session());
 const responseHandler = require('./middlewares/response-handler');
 app.use(responseHandler());
 
+const serve = require('koa-static');
+app.use(serve('public'));
+
 const router = require('./routes');
 app.use(router.routes());
 app.use(router.allowedMethods());
