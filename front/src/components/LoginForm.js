@@ -33,9 +33,4 @@ const LoginForm = props => {
   );
 }
 
-/*export default reduxForm({
-  form: 'loginForm',
-  destroyOnUnmount: false
-})(LoginForm);*/
-
 export default LoginForm;
