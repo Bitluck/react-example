@@ -14,9 +14,9 @@ class UserProfileContainer extends React.Component {
   }
 
   render() {
-    const { full, isFetching, payload } = this.props;
+    const { isFetching, payload } = this.props;
     return (
-      <UserProfile isFetching={isFetching} user={payload} full={full} />
+      <UserProfile isFetching={isFetching} user={payload}/>
     );
   }
 }
@@ -24,9 +24,7 @@ class UserProfileContainer extends React.Component {
 const mapStateToProps = state => {
   return {
     isFetching: state.user.isFetching,
-    payload: state.user.payload,
-    user: state.user.userData,
-    full: state.user.full
+    payload: state.user.payload
   }
 }
 
