@@ -1,21 +1,41 @@
 import React from 'react';
-import { Field } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
+import FormField from './FormField';
 
-let LoginForm = props => {
-  console.log({ props });
+import { loginRequest } from '../actions/authActions';
+import { required, maxLength, minLength } from '../utils/validate';
+
+import '../styles/components/LoginForm.css';
+
+const LoginForm = props => {
+  const { handleSubmit, handleSubmitForm, dispatch, loginStatus, submitting } = props;
   return (
-  <form onSubmit={props.handleSubmit(values => props.handleSubmitForm(values))} >
-    <div>
-      <label>Login</label>
-      <Field name="login" component="input" type="text" placeholder="Login" />
+    <div className="login-form">
+      {loginStatus}
+      <form onSubmit={handleSubmit(async values => handleSubmitForm(values))}>
+        <Field
+          name="login"
+          type="text"
+          component={FormField}
+          label="Login"
+          validate={[required, minLength(2), maxLength(20)]} />
+
+        <Field
+          name="password"
+          type="password"
+          component={FormField}
+          label="Password"
+          validate={[required]} />
+          
+        <button disabled={submitting}>Submit</button>
+      </form>
     </div>
-    <div>
-      <label>Password</label>
-      <Field name="password" component="input" type="password" placeholder="Password" />
-    </div>
-    <button type="submit">Login</button>
-  </form>
   );
 }
+
+/*export default reduxForm({
+  form: 'loginForm',
+  destroyOnUnmount: false
+})(LoginForm);*/
 
 export default LoginForm;
