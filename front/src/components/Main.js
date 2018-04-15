@@ -11,10 +11,10 @@ import UserProfilePage from '../containers/UserProfilePage';
 const Main = () => (
   <div className="main">
     <Switch>
-      <Route exact path="/" component={LoginForm} />
-      <Route exact path="/login" component={LoginFormContainer} />
-      <Route exact path="/users/:id" component={UserProfileContainer} />
-      <Route render={(props) => <div>Note founde {props}</div>}/>
+      <Route exact path='/' component={LoginForm} />
+      <Route exact path='/login' component={LoginFormContainer} />
+      <Route exact path='/users/:id' component={UserProfileContainer} />
+      <Route path='*' render={(props) => <div>Note founde</div>} status='404'/>
     </Switch>
   </div>
 );
