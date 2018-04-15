@@ -25,7 +25,7 @@ export function loginSuccess(userData) {
 export function loginFailed(msg) {
   return {
     type: AUTH_LOGIN_FAILED,
-    payload: msg
+    payload: { msg }
   }
 }
 
