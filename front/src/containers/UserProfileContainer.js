@@ -15,9 +15,13 @@ class UserProfileContainer extends React.Component {
 
   render() {
     const { isFetching, payload } = this.props;
-    return (
-      <UserProfile isFetching={isFetching} user={payload}/>
-    );
+    if(payload.data) {
+      return (
+        <UserProfile isFetching={isFetching} user={payload}/>
+      )
+    } else {
+      return <div>Not Found</div>
+    }
   }
 }
 
