@@ -16,6 +16,7 @@ const LoginForm = props => {
         <Field
           name="login"
           type="text"
+          autoComplete="username"
           component={FormField}
           label="Login"
           validate={[required, minLength(2), maxLength(20)]} />
@@ -23,6 +24,7 @@ const LoginForm = props => {
         <Field
           name="password"
           type="password"
+          autoComplete="current-password"
           component={FormField}
           label="Password"
           validate={[required]} />
