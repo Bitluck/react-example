@@ -7,7 +7,7 @@ import { loginRequest } from '../actions/authActions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    loginStatus: state.auth.payload.msg
+    loginStatus: state.auth.payload.loginMsg
   }
 }
 
