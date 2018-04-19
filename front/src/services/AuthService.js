@@ -7,4 +7,11 @@ export default class AuthService {
 
     return { status: response.status, data: res.data, message: res.message };
   }
+
+  async register(userData) {
+    const response = await post(`/auth/signup`, userData);
+    const res = await response.json();
+
+    return { status: response.status, data: res.data, message: res.message };
+  }
 }
