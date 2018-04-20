@@ -1,0 +1,43 @@
+{
+  "base": {
+    "type": "base",
+    "port": 3001,
+    "keys": ["key1", "key2", "key3"],
+    "db": {
+      "host": "localhost",
+      "port": 5432,
+      "database": "postgres",
+      "user": "db_user",
+      "password": "db_password",
+      "sequelize": {
+        "dialect": "postgres",
+        "pool": {
+          "max": 5,
+          "min": 0,
+          "acquire": 30000,
+          "idle": 10000
+        }
+      }
+    },
+    "session" :{
+      "key": "socialnet:sess",
+      "resave": true,
+      "saveUninitializes": true
+    },
+    "logger": {
+      
+    }
+  },
+  "production": {
+    "type": "production",
+    "port": 3000
+  },
+  "development": {
+    "type": "development",
+    "port": 3001
+  },
+  "test": {
+    "type": "test",
+    "port": 3002
+  }
+}

@@ -1,12 +1,12 @@
 'use strict';
 
-const PORT = 3000;
-
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const webpack = require('webpack');
 
-const port = process.env.PORT || PORT;
+const configs = require('./configs');
+
+const port = configs.port || process.env.PORT;
 const app = new Koa();
 
 app.use(bodyParser());
@@ -16,12 +16,12 @@ const { sequelize } = require('./models');
 const SequelizeStore = require('koa-generic-session-sequelize');
 const session = require('koa-session');
 
-app.keys = ['key1', 'key2', 'key3'];
+app.keys = configs.keys;
 
 app.use(session({
-  key: 'socialnet:sess',
-  resave: true,
-  saveUninitialized: true,
+  key: configs.session.key,
+  resave: configs.session.resave,
+  saveUninitialized: configs.session.saveUninitialized,
   store: new SequelizeStore(
     sequelize,
     {}
@@ -64,5 +64,5 @@ compiler.watch({}, () => {
 
 app.listen(port);
 /* eslint-disable no-console */
-console.log(`Server is started on ${port} port`);
+console.log(`Server is started on ${port} port in ${configs.type}`);
 /* eslint-enable no-console */

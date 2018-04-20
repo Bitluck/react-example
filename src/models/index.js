@@ -4,26 +4,17 @@ const fs = require('fs');
 const path = require('path');
 const basename = path.basename(module.filename);
 const Sequelize = require('sequelize');
+
+const configs = require('../configs');
+
 let db = {};
 
-const CONFIG = {
-  user: 'db_user',
-  host: 'localhost',
-  database: 'postgres',
-  password: 'db_password',
-  port: 5432
-};
+const CONFIG = configs.db;
 
 const sequelize = new Sequelize(CONFIG.database, CONFIG.user, CONFIG.password, {
   host: CONFIG.host,
-  dialect: 'postgres',
-
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  }
+  dialect: CONFIG.sequelize.dialect,
+  pool: CONFIG.sequelize.pool
 });
 
 fs
@@ -47,6 +38,7 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 //TODO: add success check
+
 db.sequelize.sync();
 
 module.exports = db;
