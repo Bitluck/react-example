@@ -1,20 +1,26 @@
 'use strict';
 
 const Koa = require('koa');
-const bodyParser = require('koa-bodyparser');
 const webpack = require('webpack');
+const bodyParser = require('koa-bodyparser');
+const SequelizeStore = require('koa-generic-session-sequelize');
+const session = require('koa-session');
+const serve = require('koa-static');
 
 const configs = require('./configs');
+const { sequelize } = require('./models');
+const router = require('./routes');
+const passport = require('./controllers/auth').passport;
+const logger = require('./configs/logger');
+const logMiddleware = require('./middlewares/log');
+const responseHandler = require('./middlewares/response-handler');
 
 const port = configs.port || process.env.PORT;
 const app = new Koa();
 
 app.use(bodyParser());
 
-const { sequelize } = require('./models');
-
-const SequelizeStore = require('koa-generic-session-sequelize');
-const session = require('koa-session');
+app.use(logMiddleware({ logger }));
 
 app.keys = configs.keys;
 
@@ -28,18 +34,13 @@ app.use(session({
   )
 }, app));
 
-const passport = require('./controllers/auth').passport;
-
 app.use(passport.initialize());
 app.use(passport.session());
 
-const responseHandler = require('./middlewares/response-handler');
 app.use(responseHandler());
 
-const serve = require('koa-static');
 app.use(serve('public'));
 
-const router = require('./routes');
 app.use(router.routes());
 app.use(router.allowedMethods());
 
@@ -64,5 +65,5 @@ compiler.watch({}, () => {
 
 app.listen(port);
 /* eslint-disable no-console */
-console.log(`Server is started on ${port} port in ${configs.type}`);
+console.log(`Server is started on ${port} port in ${configs.env}`);
 /* eslint-enable no-console */

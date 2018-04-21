@@ -42,6 +42,7 @@
     "pg-hstore": "^2.3.2",
     "read-chunk": "^2.1.0",
     "sequelize": "^4.33.4",
+    "useragent": "^2.3.0",
     "webpack": "^3.11.0"
   },
   "devDependencies": {
