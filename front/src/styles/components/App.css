@@ -1,37 +1,15 @@
 .app {
-	color: red;
-
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	grid-template-rows: repeat(3, 1fr);
+	color: darkseagreen;
 }
 
 .header {
-	grid-column: 1 / -1;
-	grid-row: 1;
-
 	text-align: center;
 }
 
 .main {
-	grid-column: 2;
-	grid-row: 2;
-
-	transform: skewY(-5deg);
-	transform-origin: 0;
-}
-
-.register-form {
-	grid-column: 3;
-	grid-row: 1;
-
-	transform: skewY(17deg);
-	transform-origin: 0;
+	text-align: center;
 }
 
 .footer {
-	grid-column: 1 / -1;
-	grid-row: 3;
-
 	text-align: center;
 }
