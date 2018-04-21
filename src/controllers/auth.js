@@ -9,6 +9,9 @@ const SALT_ROUNDS = 10;
 
 passport.serializeUser(async (user, done) => {
   try {
+    if(!user) {
+      return done(null, false);
+    }
     return done(null, user.id);
   } catch(err) {
     return done(err);
@@ -52,8 +55,8 @@ async function login(ctx, login, password, done) {
 
 async function signin(ctx, next) {
   await passport.authenticate('local.signin', async (err, user, info, status) => {
-    if(err) {
-      ctx.res.badRequest(status, err, info);
+    if(err || !user) {
+      ctx.res.badRequest(status, info.message, err);
     } else {
       await ctx.login(user);
 
@@ -65,7 +68,8 @@ async function signin(ctx, next) {
       }
       ctx.res.ok(userDataResponse);
     }
-    next();
+
+    await next();
   })(ctx, next);
 }
 
