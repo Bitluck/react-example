@@ -1,7 +1,9 @@
 {
   "base": {
-    "type": "base",
-    "port": 3001,
+    "env": "development",
+    "name": "SocialNetwork",
+    "host": "0.0.0.0",
+    "port": 3000,
     "keys": ["key1", "key2", "key3"],
     "db": {
       "host": "localhost",
@@ -25,19 +27,19 @@
       "saveUninitializes": true
     },
     "logger": {
-      
+
     }
   },
   "production": {
-    "type": "production",
+    "env": "production",
     "port": 3000
   },
   "development": {
-    "type": "development",
+    "env": "development",
     "port": 3001
   },
   "test": {
-    "type": "test",
+    "env": "test",
     "port": 3002
   }
 }
