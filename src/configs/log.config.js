@@ -1,9 +1,22 @@
 'use strict';
 
+const fs = require('fs');
 const path = require('path');
 const { env, name } = require('./');
 
-const directory = process.env.LOG_DIRECTORY || path.join(__dirname, '../../');
+const logDirectory = path.join(__dirname, '../../logs/');
+
+fs.access(logDirectory, fs.constants.R_OK | fs.constants.W_OK, err => {
+  if(err) {
+    fs.mkdir(logDirectory, err => {
+      if(err) {
+        process.exit(err.code);
+      }
+    });
+  }
+});
+
+const directory = process.env.LOG_DIRECTORY || path.join(__dirname, '../../logs/');
 const filename = process.env.LOG_FILENAME || `${name}.${env}.json.log`;
 
 const config = {
@@ -11,12 +24,11 @@ const config = {
   streams: []
 };
 
-// Add streams as depending on the environment
 if (env === 'production') {
   config.streams.push({
     type: 'rotating-file',
     path: path.join(directory, filename),
-    period: '1w',
+    period: '3d',
     count: 3,
     level: process.env.LOG_LEVEL || 'info'
   });
