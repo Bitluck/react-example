@@ -6,6 +6,7 @@ const basename = path.basename(module.filename);
 const Sequelize = require('sequelize');
 
 const configs = require('../configs');
+const logger = require('../configs/logger');
 
 let db = {};
 
@@ -14,7 +15,8 @@ const CONFIG = configs.db;
 const sequelize = new Sequelize(CONFIG.database, CONFIG.user, CONFIG.password, {
   host: CONFIG.host,
   dialect: CONFIG.sequelize.dialect,
-  pool: CONFIG.sequelize.pool
+  pool: CONFIG.sequelize.pool,
+  logging: logger.debug.bind(logger)
 });
 
 fs
