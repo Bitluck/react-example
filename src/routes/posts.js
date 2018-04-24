@@ -3,7 +3,7 @@
 const Router = require('koa-router');
 const postController = require('../controllers/post');
 
-const authCheck = require('../middlewares/auth-check');
+const { authCheck } = require('../middlewares/auth-check');
 const parseForm = require('../middlewares/parse-form');
 const validPostContent = require('../middlewares/valid-post-content');
 

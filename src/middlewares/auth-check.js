@@ -8,4 +8,12 @@ async function authCheck(ctx, next) {
   }
 }
 
-module.exports = authCheck;
+async function unauthCheck(ctx, next) {
+  if(ctx.isUnauthenticated()) {
+    await next();
+  } else {
+    ctx.res.badRequest();
+  }
+}
+
+module.exports = { authCheck, unauthCheck };
