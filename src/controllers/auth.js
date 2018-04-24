@@ -55,9 +55,7 @@ async function login(ctx, login, password, done) {
 
 async function signin(ctx, next) {
   await passport.authenticate('local.signin', async (err, user, info, status) => {
-    if(err || !user) {
-      ctx.res.badRequest(status, info.message, err);
-    } else {
+    if(!err && user) {
       await ctx.login(user);
 
       const userDataResponse = await {
@@ -67,6 +65,8 @@ async function signin(ctx, next) {
         updatedAt: user.updated_at
       }
       ctx.res.ok(userDataResponse);
+    } else {
+      ctx.res.badRequest(status, err || info && info.message, null);
     }
 
     await next();
@@ -114,4 +114,13 @@ async function signup(ctx) {
   }
 }
 
-module.exports = { passport, signin, signup };
+async function signout(ctx) {
+  try {
+    ctx.logout();  
+    return ctx.res.ok();
+  } catch(err) {
+    return ctx.res.badRequest();
+  }
+}
+
+module.exports = { passport, signin, signup, signout };
