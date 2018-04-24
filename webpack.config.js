@@ -20,7 +20,7 @@ const config = {
         loader : 'babel-loader'
       },
       {
-        test: /\.css$/,
+        test: /\.(scss|css)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
@@ -30,7 +30,15 @@ const config = {
                 modules: true,
                 sourceMap: true,
                 importLoaders: 1,
-                localIdentName: '[local]'
+                localIdentName: '[local]',
+                //localIdentName: '[path][name]__[local]--[hash:base64:5]'
+              }
+            },
+            {
+              loader: 'sass-loader',
+
+						  options: {
+                sourceMap: true
               }
             },
             {
