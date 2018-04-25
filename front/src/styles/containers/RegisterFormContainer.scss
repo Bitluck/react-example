@@ -1,0 +1,19 @@
+.registerForm {
+  padding: 10px;
+  margin: 10px;
+
+  .pageIndicator {
+    text-align: center;
+  }
+
+  .button {
+    text-align: right;
+    margin-left: 20px;
+  }
+
+  .error {
+    text-align: center;
+    color: red;
+    height: 30px;
+  }
+}
