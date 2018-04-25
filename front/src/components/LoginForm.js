@@ -17,8 +17,8 @@ const LoginForm = props => {
   if(props.loggedIn) {
     return <Redirect to={"/"} />
   }
+  
   return (
-    //<div className={styles.loginForm}>
     <Grid fluid className={styles.loginForm}>
       <form onSubmit={handleSubmit(async values => handleSubmitForm(values))}>
         <Row>
@@ -55,7 +55,6 @@ const LoginForm = props => {
         </Row>
       </form>
     </Grid>
-    //</div>
   );
 }
 
