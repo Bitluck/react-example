@@ -1,13 +1,15 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { withRouter } from 'react-router-dom';
 
-import { AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_REGISTER_REQUEST } from '../constants/authActionTypes';
+import { AUTH_LOGIN_REQUEST, AUTH_REGISTER_REQUEST, AUTH_LOGOUT_REQUEST } from '../constants/authActionTypes';
 import {
   loginSuccess,
   loginFailed,
   registerSuccess,
-  registerFailed } from '../actions/authActions';
+  registerFailed,
+  logoutSuccess } from '../actions/authActions';
 import AuthService from '../services/AuthService';
+
+import h from '../middleware/history';
 
 const authService = new AuthService();
 
@@ -16,6 +18,8 @@ function* loginUser(action) {
     const user = yield call(authService.login, action.payload);
 
     if(user.status === 200) {
+      localStorage.loggedIn = true;
+      
       yield put(loginSuccess({ status: user.status, data: user.data }));
     } else {
       yield put(loginFailed(user.message));
@@ -29,8 +33,6 @@ function* registerUser(action) {
   try {
     const user = yield call(authService.register, action. payload);
 
-    console.log({ user });
-
     if(user.status === 201) {
       yield put(registerSuccess({ data: user.data }));
     } else {
@@ -41,7 +43,22 @@ function* registerUser(action) {
   }
 }
 
+function* logoutUser(action) {
+  try {
+    const result = yield call(authService.logout);
+
+    if(result.status === 200) {
+      localStorage.removeItem('loggedIn');
+
+      yield put(logoutSuccess());
+    }
+  } catch(err) {
+
+  }
+}
+
 export function* watchLoginSaga() {
   yield takeLatest(AUTH_LOGIN_REQUEST, loginUser);
   yield takeLatest(AUTH_REGISTER_REQUEST, registerUser);
+  yield takeLatest(AUTH_LOGOUT_REQUEST, logoutUser);
 }
