@@ -1,0 +1,20 @@
+.loginForm {
+  color: yellowgreen;
+  border: 1px solid black;
+  padding: 10px;
+  margin: 10px;
+
+  .button {
+    text-align: right;
+  }
+
+  .error {
+    text-align: center;
+    color: red;
+    height: 30px;
+  }
+}
+
+.loginContainer {
+  max-width: 400px;
+}
