@@ -7,6 +7,8 @@ import { isAuth } from '../middleware/isAuth';
 
 import LoginFormContainer from '../containers/LoginFormContainer';
 
+import styles from '../styles/views/LoginPage.scss';
+
 const LoginPage = props => {
   return (
     <Grid fluid>
@@ -15,7 +17,7 @@ const LoginPage = props => {
           {'abc'}
         </Col>
         <Col sm={6}>
-          <LoginFormContainer />
+          <LoginFormContainer className={styles.loginForm} />
         </Col>
       </Row>
     </Grid>
