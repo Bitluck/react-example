@@ -22,6 +22,6 @@ const LoginPage = props => {
       </Row>
     </Grid>
   );
-  }
+}
 
 export default LoginPage;
