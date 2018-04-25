@@ -14,4 +14,11 @@ export default class AuthService {
 
     return { status: response.status, data: res.data, message: res.message };
   }
+
+  async logout() {
+    const response = await post(`/auth/signout`);
+    const res = await response.json();
+
+    return { status: response.status, data: res.data, message: res.message };
+  }
 }
