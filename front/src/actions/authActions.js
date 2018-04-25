@@ -6,6 +6,8 @@ import {
   AUTH_REGISTER_REQUEST,
   AUTH_REGISTER_SUCCESS,
   AUTH_REGISTER_FAILED,
+  AUTH_LOGOUT_REQUEST,
+  AUTH_LOGOUT_SUCCESS,
   AUTH_REGISTER_FORM_NEXT_PAGE,
   AUTH_REGISTER_FORM_PREV_PAGE
 } from '../constants/authActionTypes';
@@ -31,18 +33,6 @@ export function loginFailed(msg) {
   }
 }
 
-export function registerFormNextPage() {
-  return {
-    type: AUTH_REGISTER_FORM_NEXT_PAGE
-  }
-}
-
-export function registerFormPrevPage() {
-  return {
-    type: AUTH_REGISTER_FORM_PREV_PAGE
-  }
-}
-
 export function registerRequest(registerData) {
   return {
     type: AUTH_REGISTER_REQUEST,
@@ -61,5 +51,29 @@ export function registerFailed(msg) {
   return {
     type: AUTH_REGISTER_FAILED,
     payload: { registerMsg: msg }
+  }
+}
+
+export function logoutRequest() {
+  return {
+    type: AUTH_LOGOUT_REQUEST
+  }
+}
+
+export function logoutSuccess() {
+  return {
+    type: AUTH_LOGOUT_SUCCESS
+  }
+}
+
+export function registerFormNextPage() {
+  return {
+    type: AUTH_REGISTER_FORM_NEXT_PAGE
+  }
+}
+
+export function registerFormPrevPage() {
+  return {
+    type: AUTH_REGISTER_FORM_PREV_PAGE
   }
 }
