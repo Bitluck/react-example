@@ -16,13 +16,13 @@ const FormField = props => {
           </Col>
           <Col sm={8}>
             <input {...input}
-            className={styles['inp']}
+            className={styles.input}
             placeholder={label}
             type={type}
             autoComplete={autoComplete}/>
           </Col>
         </Row>
-        <Row className={styles.inl}>
+        <Row className={styles.inlineWarning}>
           <Col sm={8} smOffset={4}>
             { touched &&
             ((error   && <span>{error}</span> ) ||
