@@ -3,18 +3,29 @@ import { Field, reduxForm } from 'redux-form';
 import FormField from './FormField';
 import FormSelect from './FormSelect';
 
+import Grid from 'react-bootstrap/lib/Grid';
+import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
+
 import { loginRequest } from '../actions/authActions';
 import { required, maxLength, minLength } from '../utils/validate';
 
 import { genders } from '../constants/genders';
 
+import styles from '../styles/containers/RegisterFormContainer.scss';
+
 const RegisterFormSecond = props => {
   const { handleSubmit, prevPage, dispatch, loginStatus, submitting } = props;
   return (
-    <div className="register-form">
-      {loginStatus}
+    <Grid fluid>
+      <Row>
+        <Col>
+          {loginStatus}
+        </Col>
+      </Row>
+      
       <form onSubmit={handleSubmit}>
-
+      <Row>
         <Field
           name="firstName"
           type="text"
@@ -22,7 +33,8 @@ const RegisterFormSecond = props => {
           component={FormField}
           label="First name"
           validate={[required]} />
-
+      </Row>
+      <Row>
         <Field
           name="lastName"
           type="text"
@@ -30,7 +42,8 @@ const RegisterFormSecond = props => {
           component={FormField}
           label="Last name"
           validate={[required]} />
-
+      </Row>
+      <Row>
         <Field
           name="gender"
           type="text"
@@ -39,7 +52,8 @@ const RegisterFormSecond = props => {
           label="Gender"
           list={genders}
           validate={[required]} />
-
+      </Row>
+      <Row>
         <Field
           name="birthdate"
           type="date"
@@ -47,14 +61,14 @@ const RegisterFormSecond = props => {
           component={FormField}
           label="Birthdate"
           validate={[required]} />
-        
-        <div>
-          <button type="button" className="previous" onClick={prevPage}>Previous</button>
-          <button disabled={submitting}>Next</button>
-        </div>
+      </Row>
+      <Row className={styles.button}>
+        <button type="button" className="previous" onClick={prevPage}>Previous</button>
+        <button disabled={submitting} className={styles.button}>Next</button>
+      </Row>
         
       </form>
-    </div>
+    </Grid>
   );
 }
 
