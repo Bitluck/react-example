@@ -1,11 +1,11 @@
 import React from 'react';
 import { range } from 'lodash';
-import '../styles/components/Footer.css';
+import styles from '../styles/components/Footer.scss';
 
 class Footer extends React.Component {
   render() {
     return (
-      <div className='footer'>
+      <div className={styles.footer}>
         Footer
       </div>
     );

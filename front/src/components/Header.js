@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { range } from 'lodash';
-import '../styles/components/Header.css';
+import styles from '../styles/components/Header.scss';
 
 class Header extends React.Component {
   render() {
     return (
-      <div className='header'>
+      <div className={styles.header}>
         Header
         <div>
           <NavLink to={`/`}>Home</NavLink>
@@ -16,6 +16,8 @@ class Header extends React.Component {
           <NavLink to={`/register`}>Register</NavLink>
           {' '}
           <NavLink to={`/users/1`}>Profile</NavLink>
+          {' '}
+          <NavLink to={`/logout`}>Logout</NavLink>
         </div>
       </div>
     );
