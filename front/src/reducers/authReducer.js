@@ -2,20 +2,24 @@ import {
   AUTH_LOGIN_REQUEST,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_FAILED,
-  AUTH_REGISTER_REQUEST,
   AUTH_REGISTER_SUCCESS,
   AUTH_REGISTER_FAILED,
-
+  AUTH_LOGOUT_SUCCESS,
   AUTH_REGISTER_FORM_NEXT_PAGE,
   AUTH_REGISTER_FORM_PREV_PAGE,
 } from '../constants/authActionTypes';
+
+import { isAuth } from '../middleware/isAuth';
 
 const initialState = {
   user: {},
   payload: {},
   page: 1,
-  isRequesting: true
+  isRequesting: true,
+  loggedIn: isAuth()
 }
+
+//when app start must be loggedIn = localStorage('logged-in') || false
 
 export default function authReducer(state = initialState, action) {
   const { type, payload } = action;
@@ -24,11 +28,13 @@ export default function authReducer(state = initialState, action) {
     case AUTH_LOGIN_REQUEST:
       return { ...state, payload };
     case AUTH_LOGIN_SUCCESS:
-      return { ...state, payload };
+      return { ...state, payload, loggedIn: true };
     case AUTH_LOGIN_FAILED:
       return { ...state, payload };
     case AUTH_REGISTER_FAILED:
       return { ...state, payload };
+    case AUTH_LOGOUT_SUCCESS:
+      return { ...state, loggedIn: false };
     case AUTH_REGISTER_FORM_NEXT_PAGE:
       const currentPage = state.page;
       return { ...state, page: currentPage + 1 };
