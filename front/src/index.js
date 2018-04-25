@@ -11,6 +11,8 @@ import rootReducer from './reducers';
 import rootSaga from './sagas';
 import App from './components/App';
 
+import './styles/bootstrap.min.css';
+
 const sagaMiddleware = createSagaMiddleware();
 
 const configureStore = (preloadedState = {}) => createStore(
