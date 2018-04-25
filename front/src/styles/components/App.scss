@@ -1,0 +1,17 @@
+$app-color: darkseagreen;
+$app-background: #fafbfc;
+$block-center: 0 auto;
+
+.app {
+	color: $app-color;
+	background: $app-background;
+	margin: $block-center;
+
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+.content {
+	flex: 1 0 auto;
+}
