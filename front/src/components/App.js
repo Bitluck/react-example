@@ -2,6 +2,7 @@ import React from 'react';
 import Main from './Main';
 import Header from './Header';
 import Footer from './Footer';
+
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
