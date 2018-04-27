@@ -4,3 +4,7 @@ export const isAuth = () => {
   }
   return false;
 }
+
+export const isUnauth = () => {
+  return !isAuth();
+}
