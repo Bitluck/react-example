@@ -47,7 +47,7 @@ const parseForm = async (ctx, next) => {
   try {
     ctx.request.formData = await formidablePromise(ctx.req, opts, ['picture']);
   } catch(err) {
-    return ctx.res.internalServerError();
+    return ctx.res.badRequest(null, err.message);
   }
 
   await next();

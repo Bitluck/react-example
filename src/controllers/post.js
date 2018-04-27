@@ -3,7 +3,7 @@
 const path = require('path');
 const { Post } = require('../models');
 
-const pictureUploadPath = '/public/img/posts';
+const publicPicturePath = '/img/posts';
 
 const getPostById = async ctx => {
   const postId = ctx.params.id;
@@ -23,7 +23,7 @@ const createNewPost = async ctx => {
   const { picture } = files;
   
   const picturePath = picture ?
-                      path.join(pictureUploadPath, path.parse(picture.path).base)
+                      path.join(publicPicturePath, path.parse(picture.path).base)
                       : null;
 
   const post = {
@@ -36,7 +36,7 @@ const createNewPost = async ctx => {
     const createdPost = await Post.create(post);
     return ctx.res.ok(createdPost);
   } catch(err) {
-    return ctx.res.InternalServerError();
+    return ctx.res.badRequest(null, err.message);
   }
 }
 

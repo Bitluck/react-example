@@ -6,7 +6,7 @@ const fileType = require('file-type');
 const readChunk = require('read-chunk');
 const { promisify } = require('util');
 
-const maxTextSymbols = 2;
+const maxTextSymbols = 2048;
 const validPictureExtensions = ['png', 'jpg', 'jpeg', 'gif'];
 
 const asyncUnlink = promisify(fs.unlink);
@@ -22,7 +22,7 @@ const validPostContent = async (ctx, next) => {
       return ctx.res.badRequest(`Text > then ${ maxTextSymbols } symbols`);
     }
     
-    if(picture && !await(validPictureType(picture) && validPictureExtension(picture))) {
+    if(picture && !(await validPictureType(picture) && await validPictureExtension(picture))) {
       await asyncUnlink(picture.path);
       return ctx.res.badRequest(`Not supported format. Enabled formats: ${ validPictureExtensions }`);
     }
@@ -43,7 +43,7 @@ const validTextLength = async text => {
 
 const validPictureType = async picture => {
   try {
-    const buffer = await readChunk(picture.path + 'asd', 0, 4100);
+    const buffer = await readChunk(picture.path, 0, 4100);
     const type = fileType(buffer);
     if(type && validPictureExtensions.includes(type.ext)) { 
       return true;

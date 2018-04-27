@@ -5,7 +5,7 @@ const Sequelize = require('sequelize');
 module.exports = function (sequelize) {
   const Post = sequelize.define('Post', {
     text: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(2048),
       allowNull: false,
       defaultValue: '',
       validate: {
