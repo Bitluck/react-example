@@ -1,9 +1,15 @@
-async function payloadRequest(method, path, body) {
+async function payloadRequest(method, path, body, headers) {
   const baseUrl = '/api';
+  let optionBody = JSON.stringify(body);
+  let optionHeader = { 'Content-Type': 'application/json' };
+  if (body instanceof FormData) {
+    optionBody = body;
+    optionHeader = undefined;
+  }
   const requestOptions = {
     method,
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
+    headers: optionHeader,
+    body: optionBody,
     credentials: 'include'
   }
 
@@ -14,8 +20,8 @@ export function get(path) {
   return payloadRequest('GET', path);
 }
 
-export function post(path, body) {
-  return payloadRequest('POST', path, body);
+export function post(path, body, headers) {
+  return payloadRequest('POST', path, body, headers);
 }
 
 export function put(path, body) {
