@@ -22,7 +22,7 @@ const RegisterFormThird = props => {
         </Col>
       </Row>
       
-      <form onSubmit={handleSubmit(async values => { console.log({ values }); onSubmit(values)})}>
+      <form onSubmit={handleSubmit(async values => onSubmit(values) )}>
       <Row>
         <Field
           name="country"
