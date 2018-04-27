@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 
 import { loginRequest } from '../actions/authActions';
-import { required, maxLength, minLength } from '../utils/validate';
+import { required, isEmail, maxLength, minLength } from '../utils/validate';
 
 import styles from '../styles/containers/RegisterFormContainer.scss';
 
@@ -33,11 +33,11 @@ const RegisterFormFirst = props => {
       <Row>
         <Field
           name="email"
-          type="text"
+          //type="email"
           autoComplete="username"
           component={FormField}
           label="Email"
-          validate={[required]} />
+          validate={[required, isEmail]} />
       </Row>
       <Row>
         <Field
