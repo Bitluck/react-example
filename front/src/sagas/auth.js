@@ -9,8 +9,6 @@ import {
   logoutSuccess } from '../actions/authActions';
 import AuthService from '../services/AuthService';
 
-import h from '../middleware/history';
-
 const authService = new AuthService();
 
 function* loginUser(action) {
