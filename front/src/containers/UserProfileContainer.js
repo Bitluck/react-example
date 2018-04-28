@@ -4,31 +4,13 @@ import { bindActionCreators } from 'redux';
 
 import { getUserRequest } from '../actions/userActions';
 import UserProfile from '../components/UserProfile';
-
-class UserProfileContainer extends React.Component {
-  componentDidMount() {
-    const { id } = this.props.match.params;
-    const { dispatchGetUser } = this.props;
-    
-    dispatchGetUser(id);
-  }
-
-  render() {
-    const { isFetching, payload } = this.props;
-    if(payload.data) {
-      return (
-        <UserProfile isFetching={isFetching} user={payload}/>
-      )
-    } else {
-      return <div>Not Found</div>
-    }
-  }
-}
+import NotFound from '../components/NotFound';
 
 const mapStateToProps = state => {
   return {
     isFetching: state.user.isFetching,
-    payload: state.user.payload
+    user: state.user.payload,
+    userId: state.user.userId
   }
 }
 
@@ -38,4 +20,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfileContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

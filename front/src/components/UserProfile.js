@@ -1,38 +1,46 @@
 import React from 'react';
 
-const UserProfile = (props) => {
-  const { isFetching, user } = props;
+import FullUserProfile from './FullUserProfile';
+import PartialUserProfile from './PartialUserProfile';
+import NotFound from './NotFound';
 
-  if(isFetching) {
-    return <div>Loading user profile...</div>
+import { isAuth } from '../middleware/isAuth';
+
+class UserProfile extends React.Component {
+  constructor(props) {
+    super(props);
   }
 
-  const { full } = user.data;
-  if(full) {
-    return (
-      <div>
-      <div>{ `${user.data.login}'s profile` }</div>
-      <img src={user.data.avatar} />
-      <ul>
-        <li>First name: {user.data.firstName}</li>
-        <li>Second name: {user.data.lastName}</li>
-        <li>Birthdate: {user.data.birthdate}</li>
-        <li>Gender: {user.data.gender}</li>
-        <li>Country: {user.data.country}</li>
-        <li>City: {user.data.city}</li>
-      </ul>
-    </div>
-    );
+  componentDidMount() {
+    const { isFetching, user, dispatchGetUser, match } = this.props;
+    //const { id } = match.params;
+    const id = this.props.id;
+
+    dispatchGetUser(id);
+    //dispatchGetRelationWithUser
   }
-  return (
-    <div>
-      <div>{ `${user.data.login}'s profile` }</div>
-      <ul>
-        <li>First name: {user.data.firstName}</li>
-        <li>Second name: {user.data.lastName}</li>
-      </ul>
-    </div>
-  );
+
+  render() {
+    const { isFetching, user } = this.props;
+
+    if(isFetching) {
+      return <div>Loading...</div>
+    }
+
+    if(user.data) {
+      if(isAuth()) {
+        return (
+          <FullUserProfile user={user} />
+        );
+      }
+
+      return (
+        <PartialUserProfile user={user} />
+      );
+    }
+
+    return <NotFound />;
+  }
 }
 
 export default UserProfile;
