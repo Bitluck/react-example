@@ -14,13 +14,13 @@ const NavigationMenu = props => {
         <NavLink to={`/`}>Home (Feed)</NavLink>
       </Row>
       <Row>
-        <NavLink to={'/post'}>Create post</NavLink>
+        <NavLink to={`/users/me`}>My profile</NavLink>
       </Row>
       <Row>
         <NavLink to={'/friends'}>Friends</NavLink>
       </Row>
       <Row>
-        <NavLink to={`/users/1`}>Profile</NavLink>
+        <NavLink to={'/post'}>Create post</NavLink>
       </Row>
       <Row>
         <NavLink to={`/logout`}>Logout</NavLink>
