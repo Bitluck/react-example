@@ -4,4 +4,7 @@ node_modules/
 public/dist/
 /logs/
 *.log
-public/img
+public/img/posts
+public/img/avatars/*
+!public/img/avatars/default_big.png
+!public/img/avatars/default_small.png
