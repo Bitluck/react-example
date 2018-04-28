@@ -1,7 +1,14 @@
 'use strict';
 
-const { User, /*RequestRelation,*/ FriendRelation, Sequelize } = require('../models');
+const { /*RequestRelation,*/ FriendRelation, Sequelize } = require('../models');
 const Op = Sequelize.Op;
+
+const RELATION_STATUS = {
+  friends: 'friends',
+  request: 'request',
+  inRequest: 'inRequest',
+  outRequest: 'outRequest'
+};
 
 const getAllFriends = async ctx => {
   const userId = ctx.params.id;
@@ -28,66 +35,8 @@ const getAllFriends = async ctx => {
 }
 
 const makeFriends = async ctx => {
-  // if user with id don't exists -> ?
-  /*console.log({ 1: 2 });
-
-  const userId = ctx.params.id;
-  const authUserId = ctx.state.user.id;
-
-  const user = await User.findOne({ where: { id: userId }});
-
-  if(!user) {
-    return ctx.res.badRequest(`User with id=${userId} not exists`);
-  }
-
-  const friendRel = await FriendRelation.findOne({
-    where: {
-      [Op.or]: [{ user_from: userId, user_to: authUserId },
-                { user_from: authUserId, user_to: userId }]
-    }
-  });
-  
-  // if already friends -> nothing
-  if(friendRel) {
-    return ctx.res.ok();
-  }
-
-  const reqRel = await RequestRelation.findOne({
-    where: {
-      [Op.or]: [{ user_from: userId, user_to: authUserId },
-                { user_from: authUserId, user_to: userId }]
-    }
-  });
-
-  // if 1->2 -> 1<->2
-  if(reqRel) {
-    try {
-      const rel = { user_from: reqRel.user_from, user_to: reqRel.user_to };
-      const newFriendsRelation = await FriendRelation.create(rel);
-      reqRel.destroy();
-      return ctx.res.ok(newFriendsRelation);
-    } catch(err) {
-      return ctx.res.badRequest(err);
-    }
-  } else {
-  // if 1-2  -> 1 ->2
-    const rel = { user_from: authUserId, user_to: userId };
-    const newRequestRelation = await RequestRelation.create(rel);
-    return ctx.res.ok();
-  }*/
-
   const userId = +ctx.params.id;
   const authUserId = +ctx.state.user.id;
-
-  if(authUserId === userId) {
-    return ctx.res.badRequest('User could\'nt is self friend');
-  }
-
-  const user = await User.findOne({ where: { id: userId }});
-
-  if(!user) {
-    return ctx.res.badRequest(`User with id=${userId} not exists`);
-  }
 
   const relation = await FriendRelation.findOne({
     where: {
@@ -133,8 +82,44 @@ const getOutRequests = ctx => {
   ctx.res.ok();
 }
 
-const isRelation = ctx => {
-  ctx.res.ok();
+const isRelation = async ctx => {
+  const userId = +ctx.params.id;
+  const authUserId = +ctx.state.user.id;
+
+  let relation;
+
+  try {
+    relation = await FriendRelation.findOne({
+      where: {
+        [Op.or]: [{ user_from: authUserId, user_to: userId },
+                  { user_from: userId, user_to: authUserId }]
+      }
+    });
+  } catch(err) {
+    return ctx.res.badRequest();
+  }
+
+  const status = {
+    userFrom: authUserId,
+    userTo: userId,
+    relation: null
+  }
+
+  if(relation) {
+    if(relation.state === RELATION_STATUS.friends) {
+      status.relation = RELATION_STATUS.friends;
+    }
+    if(relation.state === RELATION_STATUS.request) {
+      if(relation.user_from === authUserId) {
+        status.relation = RELATION_STATUS.outRequest;
+      } else {
+        status.relation = RELATION_STATUS.inRequest;
+        [status.userFrom, status.userTo] = [status.userTo, status.userFrom];
+      }
+    }
+  }
+
+  return ctx.res.ok(status);
 }
 
 module.exports = { getAllFriends, makeFriends, deleteFromFriends, getInRequests, getOutRequests, isRelation };
