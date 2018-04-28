@@ -7,36 +7,44 @@ const getAllUsers = async ctx => {
   ctx.res.ok(users);
 }
 
+const getMe = async ctx => {
+  ctx.params.id = ctx.state.user.id;
+  return getUserById(ctx);
+}
+
 const getUserById = async ctx => {
-  const userId = ctx.params.id;
+  const userId = +ctx.params.id;
+
+  if(userId !== +userId) {
+    return ctx.res.notFound();
+  }
+
   const user = await User.findOne({ where: { id: userId }});
   const profile = await Profile.findOne({ where: { user_id: userId }});
 
   if(user && profile) {
     let result;
-    if(ctx.isAuthenticated()){
+    if(ctx.isAuthenticated()) {
       result = {
-        id: user.id,
-        login: user.login,
-        email: profile.email,
+        id:        user.id,
+        login:     user.login,
+        email:     profile.email,
         firstName: profile.firstName,
-        lastName: profile.lastName,
+        lastName:  profile.lastName,
         birthdate: profile.birthdate,
-        gender: profile.gender,
-        country: profile.country,
-        city: profile.city,
-        avatar: profile.avatar,
-        full: true,
+        gender:    profile.gender,
+        country:   profile.country,
+        city:      profile.city,
+        avatar:    profile.avatar,
         createdAt: user.created_at,
         updatedAt: user.updated_at
       }
     } else {
       result = {
-        id: user.id,
-        login: user.login,
+        id:        user.id,
+        login:     user.login,
         firstName: profile.firstName,
-        lastName: profile.lastName,
-        full: false
+        lastName:  profile.lastName
       }
     }
     ctx.res.ok(result);
@@ -69,4 +77,4 @@ const updateUserProfile = async ctx => {
   }
 }
 
-module.exports = { getAllUsers, getUserById, updateUserProfile };
+module.exports = { getAllUsers, getMe, getUserById, updateUserProfile };
