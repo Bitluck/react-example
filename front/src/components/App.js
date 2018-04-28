@@ -23,15 +23,15 @@ class App extends React.Component {
 
         { isAuth()
         ? (<Row className={styles.content}>
-          <Col sm={2}>
+          <Col sm={2} smOffset={1}>
            <NavigationMenu />
           </Col>
-          <Col sm={10}>
+          <Col sm={8}>
             <Main />
           </Col>
         </Row>)
         : (<Row className={styles.content}>
-            <Col sm={12}>
+            <Col sm={10} smOffset={1}>
               <Main />
             </Col>
            </Row>)}
