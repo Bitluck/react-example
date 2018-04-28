@@ -32,7 +32,23 @@
   },
   "production": {
     "env": "production",
-    "port": 3000
+    "port": 3000,
+    "db": {
+      "host": "ec2-54-235-90-200.compute-1.amazonaws.com",
+      "port": 5432,
+      "database": "deusm0541tpdrm",
+      "user": "gbkggplhpztkvt",
+      "password": "a8bf3e3d98a9d2389f5270bc66f02d162078f665b71b68a10fab749db0612c86",
+      "sequelize": {
+        "dialect": "postgres",
+        "pool": {
+          "max": 5,
+          "min": 0,
+          "acquire": 30000,
+          "idle": 10000
+        }
+      }
+    }
   },
   "development": {
     "env": "development",
