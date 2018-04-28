@@ -10,6 +10,7 @@ import LogoutPage from '../components/LogoutPage';
 import LoginPage from '../views/LoginPage';
 import RegisterPage from '../views/RegisterPage';
 import PostPage from '../views/PostPage';
+import NotFound from './NotFound';
 
 import { isAuth, isUnauth } from '../middleware/isAuth';
 
@@ -17,13 +18,15 @@ const Main = () => (
   <div className="main">
     {/* <div className="content-contaner"> */}
     <Switch>
-      <PrivateRoute exact path='/' auth={isAuth} component={PostPage} redirectPath={'/login'}/>
+      <PrivateRoute exact path='/' auth={isAuth} component={NotFound} redirectPath={'/login'}/>
       <PrivateRoute exact path='/login' auth={isUnauth} component={LoginPage} redirectPath={'/'}/>
       <PrivateRoute exact path='/register' auth={isUnauth} component={RegisterPage} redirectPath={'/'}/>
       <PrivateRoute exact path='/post' auth={isAuth} component={PostPage} redirectPath={'/'}/>
       <Route exact path='/logout' component={LogoutPage} />
-      <Route exact path='/users/:id' component={UserProfileContainer} />
-      <Route path='*' render={(props) => <div>Note founde</div>} status='404'/>
+      <Route exact path='/users/:id' render={
+        props => { const id = props.match.params.id;
+                   return <UserProfileContainer props={props} key={id} id={id} />}} />
+      <Route path='*' render={props => <NotFound />} status='404'/>
   </Switch>
     {/* </div> */}
   </div>
