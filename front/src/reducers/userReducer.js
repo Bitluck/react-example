@@ -7,7 +7,8 @@ const initialState = {
   userData: {},
   payload: {},
   isFetching: true,
-  full: false
+  full: false,
+  userId: null
 }
 
 export default function userReducer(state = initialState, action) {
@@ -15,7 +16,7 @@ export default function userReducer(state = initialState, action) {
 
   switch(type) {
     case USER_GET_REQUEST:
-      return { ...state, payload, isFetching: true };
+      return { ...state, userId : payload, isFetching: true };
     case USER_GET_SUCCESS:
       return { ...state, payload, isFetching: false };
     default:
