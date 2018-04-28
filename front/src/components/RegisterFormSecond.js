@@ -3,6 +3,8 @@ import { Field, reduxForm } from 'redux-form';
 import FormField from './FormField';
 import FormSelect from './FormSelect';
 
+import { Link } from 'react-router-dom';
+
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
@@ -66,7 +68,11 @@ const RegisterFormSecond = props => {
         <button type="button" className="previous" onClick={prevPage}>Previous</button>
         <button disabled={submitting} className={styles.button}>Next</button>
       </Row>
-        
+      <Row>
+        <Col className={styles.button} sm={12}>
+          {'or '}<Link to={'/login'}>login</Link>
+        </Col>
+      </Row>
       </form>
     </Grid>
   );

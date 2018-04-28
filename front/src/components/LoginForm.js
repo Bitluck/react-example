@@ -5,6 +5,8 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import FormField from './FormField';
 
+import { Link } from 'react-router-dom';
+
 import { loginRequest } from '../actions/authActions';
 import { required, maxLength, minLength } from '../utils/validate';
 
@@ -15,7 +17,7 @@ const LoginForm = props => {
   const { handleSubmit, handleSubmitForm, dispatch, loginStatus, submitting } = props;
 
   if(props.loggedIn) {
-    return <Redirect to={"/"} />
+    return <Redirect to={'/users/me'} />
   }
   
   return (
@@ -51,6 +53,11 @@ const LoginForm = props => {
         <Row>
           <Col className={styles.button} sm={12}>
             <button disabled={submitting}>Submit</button>
+          </Col>
+        </Row>
+        <Row>
+          <Col className={styles.button} sm={12}>
+            {'or '}<Link to={'/register'}>register</Link>
           </Col>
         </Row>
       </form>

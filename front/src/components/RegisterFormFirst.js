@@ -2,6 +2,8 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import FormField from './FormField';
 
+import { Link } from 'react-router-dom';
+
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
@@ -59,6 +61,11 @@ const RegisterFormFirst = props => {
       </Row>
       <Row className={styles.button}>
         <button type="submit" className="next">Next</button>
+      </Row>
+      <Row>
+        <Col className={styles.button} sm={12}>
+          {'or '}<Link to={'/login'}>login</Link>
+        </Col>
       </Row>
       </form>
     </Grid>
