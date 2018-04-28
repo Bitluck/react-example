@@ -7,9 +7,9 @@ const postsRouter = require('./posts');
 const staticRouter = require('./static');
 
 const apiRouter = new Router({ prefix: '/api' })
-  .use('/auth', authRouter.routes())
-  .use('/users', usersRouter.routes())
-  .use('/posts', postsRouter.routes());
+  .use('/auth', authRouter.routes(), authRouter.allowedMethods())
+  .use('/users', usersRouter.routes(), usersRouter.allowedMethods())
+  .use('/posts', postsRouter.routes(), postsRouter.allowedMethods());
 
 module.exports = new Router()
   .use(apiRouter.routes())
