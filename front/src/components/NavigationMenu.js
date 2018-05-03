@@ -11,10 +11,10 @@ const NavigationMenu = props => {
   return (
     <Grid>
       <Row>
-        <NavLink to={`/`}>Home (Feed)</NavLink>
+        <NavLink to={`/users/me`}>My profile</NavLink>
       </Row>
       <Row>
-        <NavLink to={`/users/me`}>My profile</NavLink>
+        <NavLink to={`/`}>Feed</NavLink>
       </Row>
       <Row>
         <NavLink to={'/friends'}>Friends</NavLink>
