@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run prod1",
+    "start": "npm run dev",
     "dev": "NODE_ENV=development node src/index.js | bunyan",
-    "prod": "pm2-runtime --env production --raw process.json | bunyan",
-    "prod1": "NODE_ENV=production node src/index.js | bunyan",
+    "prod": "NODE_ENV=production node src/index.js | bunyan",
+    "pm2-prod": "pm2-runtime --env production --raw process.json | bunyan",
     "test": "echo \"Error: no test specified\" && exit 1",
     "docker-build": "docker-compose build --no-cache",
     "docker-start": "docker-compose up",
