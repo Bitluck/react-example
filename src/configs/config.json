@@ -23,6 +23,8 @@
     },
     "session" :{
       "key": "socialnet:sess",
+      "renew": true,
+      "maxAge": 864000000,
       "resave": true,
       "saveUninitializes": true
     },

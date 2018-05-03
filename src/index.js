@@ -26,6 +26,8 @@ app.keys = configs.keys;
 
 app.use(session({
   key: configs.session.key,
+  maxAge: configs.session.maxAge,
+  renew: configs.session.renew,
   resave: configs.session.resave,
   saveUninitialized: configs.session.saveUninitialized,
   store: new SequelizeStore(

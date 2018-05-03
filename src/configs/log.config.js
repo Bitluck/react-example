@@ -16,7 +16,7 @@ fs.access(logDirectory, fs.constants.R_OK | fs.constants.W_OK, err => {
   }
 });
 
-const directory = process.env.LOG_DIRECTORY || path.join(__dirname, '../../logs/');
+const directory = process.env.LOG_DIRECTORY || logDirectory;
 const filename = process.env.LOG_FILENAME || `${name}.${env}.json.log`;
 
 const config = {
