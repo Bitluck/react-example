@@ -52,7 +52,7 @@ const LoginForm = props => {
         </Row>
         <Row>
           <Col className={styles.button} sm={12}>
-            <button disabled={submitting}>Submit</button>
+            <button disabled={submitting}>Login</button>
           </Col>
         </Row>
         <Row>
