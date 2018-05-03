@@ -10,6 +10,8 @@ import LogoutPage from '../components/LogoutPage';
 import LoginPage from '../views/LoginPage';
 import RegisterPage from '../views/RegisterPage';
 import PostPage from '../views/PostPage';
+import FeedPostList from '../containers/FeedPostList';
+import Feed from './Feed';
 import NotFound from './NotFound';
 
 import { isAuth, isUnauth } from '../middleware/isAuth';
@@ -18,7 +20,7 @@ const Main = () => (
   <div className="main">
     {/* <div className="content-contaner"> */}
     <Switch>
-      <PrivateRoute exact path='/' auth={isAuth} component={NotFound} redirectPath={'/login'}/>
+      <PrivateRoute exact path='/' auth={isAuth} component={Feed} redirectPath={'/login'}/>
       <PrivateRoute exact path='/login' auth={isUnauth} component={LoginPage} redirectPath={'/'}/>
       <PrivateRoute exact path='/register' auth={isUnauth} component={RegisterPage} redirectPath={'/'}/>
       <PrivateRoute exact path='/post' auth={isAuth} component={PostPage} redirectPath={'/'}/>
