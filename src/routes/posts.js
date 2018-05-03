@@ -8,5 +8,6 @@ const parseForm = require('../middlewares/parse-form');
 const validPostContent = require('../middlewares/valid-post-content');
 
 module.exports = new Router()
+  .get('/feed', authCheck, postController.getFeedPosts)
   .get('/:id', authCheck, postController.getPostById)
   .post('/', authCheck, parseForm, validPostContent, postController.createNewPost);
