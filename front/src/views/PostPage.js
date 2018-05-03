@@ -13,10 +13,12 @@ const PostPage = props => {
   return (
     <Grid fluid>
       <Row>
-        <Col sm={6}>
-          {'def'}
+        <Col sm={8} smOffset={1} className={styles.title}>
+          <strong>{'New post'}</strong>
         </Col>
-        <Col sm={6}>
+      </Row>
+      <Row>
+        <Col sm={8} smOffset={1}>
           <PostFormContainer className={styles.loginForm} />
         </Col>
       </Row>
