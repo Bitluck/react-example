@@ -1,15 +1,28 @@
 import { get, post, put, del } from './BaseService';
 
 export default class PostService {
-  async getPost() {
+  async getPost(postId) {
     const response = await get(`/post/${postId}`);
     const res = await response.json();
 
     return { status: response.status, data: res.data };
   }
 
+  async getUserAllPosts({ userId, offset, limit }) {
+    const response = await get(`/users/${userId}/posts?offset=${offset}&limit=${limit}`);
+    const res = await response.json();
+
+    return { status: response.status, data: res.data };
+  }
+
+  async getFeedPosts({ offset, limit }) {
+    const response = await get(`/posts/feed?offset=${offset}&limit=${limit}`);
+    const res = await response.json();
+
+    return { status: response.status, data: res.data };
+  }
+
   async createPost(postData) {
-    //TODO use multiform !!!
     const formData = new FormData();
 
     const text = postData.postData.text.postText;
