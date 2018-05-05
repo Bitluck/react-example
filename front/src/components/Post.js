@@ -41,12 +41,10 @@ const Post = props => {
         }
       </Row>
       <Row>
-        <Col sm={1} smOffset={11}>
-        {/* //TODO add colors */}
+        <Col sm={2} smOffset={10} className={styles.likeContainer}>
           <div className={styles.like}>▲</div>
           <div className={styles.likeCounter}>{Math.floor(Math.random() * (15)) - 5}</div>
           <div className={styles.unlike}>▼</div>
-        {/* '▲ ▼' */}
         </Col>
       </Row>
     </Grid>
