@@ -1,9 +1,11 @@
 'use strict';
 
-const { /*RequestRelation,*/ FriendRelation, Sequelize } = require('../models');
+const { FriendRelation, Sequelize } = require('../models');
+const { getUserList } = require('./user');
 const Op = Sequelize.Op;
 
 const RELATION_STATUS = {
+  none: null,
   friends: 'friends',
   request: 'request',
   inRequest: 'inRequest',
@@ -11,27 +13,32 @@ const RELATION_STATUS = {
 };
 
 const getAllFriends = async ctx => {
-  const userId = ctx.params.id;
+  const userId = +ctx.params.id;
 
   const friendRelations = await FriendRelation.findAll({
     where: {
-      [Op.or]: [{ user_from: userId}, {user_to: userId}]
+      [Op.and]:[
+        {
+          state: RELATION_STATUS.friends
+        },
+        {
+          [Op.or]: [{ user_from: userId }, { user_to: userId }]
+        }
+      ]
     }
   });
 
-  //console.log({ f: JSON.stringify(friendRelations) });
+  const friendIds = friendRelations.map(rel => rel.user_from === userId 
+                                             ? rel.user_to
+                                             : rel.user_from);
 
-  const obj = {
-    userId,
-    func: value => {
-      return (value.user_from === userId) ? value.user_to : value.user_from;
-    }
+  try {
+    const friends = await getUserList(friendIds);
+
+  return ctx.res.ok(friends);
+  } catch(err) {
+    return ctx.res.badRequest(err.message);
   }
-
-  const friendIds = friendRelations.map(obj.func, obj);
-  return friendIds;
-  //console.log({ friendIds });
-  
 }
 
 const makeFriends = async ctx => {
@@ -49,6 +56,7 @@ const makeFriends = async ctx => {
     try {
       const rel = { user_from: authUserId, user_to: userId, state: 'request' };
       const newRel = await FriendRelation.create(rel);
+      newRel.state = RELATION_STATUS.outRequest;
       return ctx.res.created(newRel);
     } catch(err) {
       return ctx.res.badRequest();
@@ -56,14 +64,14 @@ const makeFriends = async ctx => {
   }
 
   if(relation.state === 'friends') {
-    return ctx.res.ok(null, 'Already friends');
+    return ctx.res.ok(RELATION_STATUS.friends, 'Already friends');
   }
 
   if(relation.state === 'request') {
     if(relation.user_from === authUserId && relation.user_to === userId) {
-      return ctx.res.ok(null, 'Request already post');
+      return ctx.res.ok(RELATION_STATUS.outRequest, 'Request already post');
     }
-    relation.state = 'friends';
+    relation.state = RELATION_STATUS.friends;
     //const updatedRel = await FriendRelation.update(relation);
     relation.save();
     return ctx.res.created(relation);
@@ -83,7 +91,7 @@ const getOutRequests = ctx => {
 }
 
 const isRelation = async ctx => {
-  const userId = +ctx.params.id;
+  const userId     = +ctx.params.id;
   const authUserId = +ctx.state.user.id;
 
   let relation;
@@ -102,7 +110,7 @@ const isRelation = async ctx => {
   const status = {
     userFrom: authUserId,
     userTo: userId,
-    relation: null
+    relation: RELATION_STATUS.none
   }
 
   if(relation) {

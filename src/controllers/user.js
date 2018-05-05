@@ -1,6 +1,7 @@
 'use strict';
 
-const { User, Profile } = require('../models');
+const { User, Profile, Sequelize } = require('../models');
+const Op = Sequelize.Op;
 
 const getAllUsers = async ctx => {
   const users = await User.findAll();
@@ -77,4 +78,21 @@ const updateUserProfile = async ctx => {
   }
 }
 
-module.exports = { getAllUsers, getMe, getUserById, updateUserProfile };
+const getUserList = async list => {
+  if(list.length === 0) return [];
+
+  const users = await User.findAll({
+    where: {
+      id: {
+        [Op.in]: list
+      }
+    },
+    include: [{
+      model: Profile
+    }]
+  });
+  
+  return users;
+}
+
+module.exports = { getAllUsers, getMe, getUserById, getUserList, updateUserProfile };
