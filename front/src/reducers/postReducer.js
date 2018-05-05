@@ -41,11 +41,17 @@ export default function postReducer(state = initialState, action) {
     case GET_FEED_MORE_POSTS_REQUEST:
       return { ...state, feedOffset: state.feedOffset + state.feedLimit };
     case GET_USER_POSTS_SUCCESS:
-      const isMoreUserPosts = payload.data.length === state.limit ? true : false;
-      return { ...state, posts: [ ...state.posts, ...payload.data ], isMore: isMoreUserPosts };
+      const isMoreUserPosts = payload.data && payload.data.length === state.limit ? true : false;
+      const userData = payload.data ? payload.data : [];
+      return { ...state, posts: [ ...state.posts, ...userData ], isMore: isMoreUserPosts };
     case GET_FEED_POSTS_SUCCESS:
-      const isMoreFeedPosts = payload.data.length === state.limit ? true : false;    
-      return { ...state, feedPosts: [ ...state.feedPosts, ...payload.data ], isMore: isMoreFeedPosts };
+      const isMoreFeedPosts = payload.data && payload.data.length === state.limit ? true : false;
+      const feedData = payload.data ? payload.data : [];
+      return { ...state, feedPosts: [ ...state.feedPosts, ...feedData ], isMore: isMoreFeedPosts };
+    case GET_USER_POSTS_FAILED:
+      return { ...state };
+    case GET_FEED_POSTS_FAILED:
+      return { ...state };
     default:
       return state;
   }
