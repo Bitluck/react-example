@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
 import Main from './Main';
 import Header from './Header';
 import Footer from './Footer';
@@ -10,9 +13,18 @@ import Col from 'react-bootstrap/lib/Col';
 
 import styles from '../styles/components/App.scss';
 
+import { getCurrentUserRequest } from '../actions/userActions';
+
 import { isAuth } from '../middleware/isAuth';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    if(isAuth()) {
+      props.dispatch(getCurrentUserRequest());
+    }
+  }
+
   render() {
     return (
       //<div className="app">
@@ -45,4 +57,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter(connect()(App));

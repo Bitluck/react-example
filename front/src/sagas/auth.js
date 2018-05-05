@@ -1,4 +1,4 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, all, select, takeLatest } from 'redux-saga/effects';
 
 import { AUTH_LOGIN_REQUEST, AUTH_REGISTER_REQUEST, AUTH_LOGOUT_REQUEST } from '../constants/authActionTypes';
 import {
@@ -7,6 +7,7 @@ import {
   registerSuccess,
   registerFailed,
   logoutSuccess } from '../actions/authActions';
+import { getCurrentUserSuccess } from '../actions/userActions';
 import AuthService from '../services/AuthService';
 
 const authService = new AuthService();
@@ -17,8 +18,14 @@ function* loginUser(action) {
 
     if(user.status === 200) {
       localStorage.loggedIn = true;
+
+      console.log({ u: user });
       
-      yield put(loginSuccess({ status: user.status, data: user.data }));
+      yield all([
+        put(loginSuccess({ status: user.status, data: user.data })),
+        put(getCurrentUserSuccess(user.data))
+      ]);
+
     } else {
       yield put(loginFailed(user.message));
     }

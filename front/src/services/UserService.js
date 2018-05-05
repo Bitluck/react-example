@@ -7,4 +7,11 @@ export default class UserService {
 
     return { status: response.status, data: res.data };
   }
+
+  async getCurrentUser() {
+    const response = await get(`/users/me`);
+    const res = await response.json();
+
+    return { status: response.status, data: res.data };
+  }
 }

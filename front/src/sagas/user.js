@@ -1,10 +1,11 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { getUserSuccess, getUserFailed } from '../actions/userActions';
+import { getUserSuccess,
+         getUserFailed,
+         getCurrentUserSuccess } from '../actions/userActions';
 import UserService from '../services/UserService';
 
 import { USER_GET_REQUEST,
-         USER_GET_SUCCESS,
-         USER_GET_FAILED } from '../constants/userActionTypes';
+         GET_CURRENT_USER_REQUEST } from '../constants/userActionTypes';
 
 const userService = new UserService();
 
@@ -17,6 +18,17 @@ function* fetchUser(action) {
   }
 }
 
+function* fetchCurrentUser(action) {
+  try {
+    const currentUser = yield call(userService.getCurrentUser);
+
+    yield put(getCurrentUserSuccess(currentUser));
+  } catch(err) {
+    yield put(getUserFailed(err.message));
+  }
+}
+
 export function* watchGetUserSaga() {
   yield takeLatest(USER_GET_REQUEST, fetchUser);
+  yield takeLatest(GET_CURRENT_USER_REQUEST, fetchCurrentUser);
 }

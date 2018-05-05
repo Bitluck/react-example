@@ -16,6 +16,7 @@ const mapStateToProps = state => {
     isMore: state.post.isMore,
     offset: state.post.offset,
     limit: state.post.limit
+    currentUserId: state.user.currentUser.id
   }
 }
 
