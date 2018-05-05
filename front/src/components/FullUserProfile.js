@@ -8,69 +8,91 @@ import UserProfileItem from './UserProfileItem';
 import PostList from './PostList';
 import ProfilePostList from '../containers/ProfilePostList';
 
+import styles from '../styles/components/UserProfile.scss';
+
 const FullUserProfile = (props) => {
-  const { user, posts } = props;
+  const { id, user, posts, relation, onClick, currentUserId } = props;
   const MS_IN_YEAR = 1000*60*60*24*365;
+  const defaultAvatar = '/img/avatars/default_big.png';
+
+  const RELATION_STATUS = {
+    none: null,
+    friends: 'friends',
+    inRequest: 'inRequest',
+    outRequest: 'outRequest'
+  };
 
   const userPosts = posts.map(post => ( { ...post, user: user.data } ));
-  console.log({ userPosts });
+
+  let friendElement;
+
+  if(+id === user.data.id && +id !== currentUserId) {
+    switch(relation) {
+      case RELATION_STATUS.none:
+      case '':
+        friendElement = <button onClick={() => onClick(user.data.id)} className={styles.addToFriends}>Add to friends + </button>;
+        break;
+      case RELATION_STATUS.outRequest:
+        friendElement = <p className={styles.addToFriends}>Already request</p>;
+        break;
+      case RELATION_STATUS.inRequest:
+        friendElement = <button onClick={() => onClick(user.data.id)} className={styles.addToFriends}>Confirm</button>;
+        break;
+      case RELATION_STATUS.friends:
+        friendElement = <p className={styles.addToFriends}>Already friends</p>;
+        break;
+    }
+  }
+
 
   return (
-    <Grid fluid>
-      <Row>
-        <Col>
-          <strong>{`${user.data.login}'s profile`}</strong>
-        </Col>
-      </Row>
+    <Grid fluid className={styles.profileContainer}>
       <Row>
         <Col sm={4}>
-          <img width='150'
-               height='150'
-               src={user.data.avatar
-                  ? user.data.avatar
-                  : '/img/avatars/default_big.png'}
-               alt='avatar' />
+          <img width='200'
+              height='200'
+              className={styles.avatar}
+              src={user.data.avatar
+                ? user.data.avatar
+                : defaultAvatar }
+              alt='avatar' />
+          {friendElement}
         </Col>
-        <Col sm={8}>
-          <Row>
+        <Col sm={8} className={styles.profileData}>
+          <Row><Col sm={12} className={styles.profileDataTop}>
+              {`${user.data.firstName} ${user.data.lastName}`}
+          </Col></Row>
+          <Row><Col sm={12}>
             <UserProfileItem
-              name={'First name'}
-              value={user.data.firstName}/>
-          </Row>
-          <Row>
-            <UserProfileItem
-              name={'Last name'}
-              value={user.data.lastName}/>
-          </Row>
-          <Row>
-            <UserProfileItem
-              name={'Email'}
-              value={user.data.email}/>
-          </Row>
-          <Row>
-            <UserProfileItem
-              name={'Gender'}
-              value={user.data.gender}/>
-          </Row>
-          <Row>
-            <UserProfileItem
-              name={'Birthdate'}
-              value={`${new Date(user.data.birthdate).toLocaleDateString()}`}/>
-          </Row>
-          <Row>
-            <UserProfileItem
-              name={'Country'}
+              name={'Country:'}
               value={user.data.country}/>
-          </Row>
-          <Row>
+          </Col></Row>
+          <Row><Col sm={12}>
             <UserProfileItem
-              name={'City'}
+              name={'City:'}
               value={user.data.city}/>
-          </Row>
+          </Col></Row>
+          <Row><Col sm={12}>
+            <UserProfileItem
+              name={'Birthdate:'}
+              value={`${new Date(user.data.birthdate).toLocaleDateString()}`}/>
+          </Col></Row>
+          <Row><Col sm={12}>
+            <UserProfileItem
+              name={'Gender:'}
+              value={user.data.gender}/>
+          </Col></Row>
+          <Row><Col sm={12}>
+            <UserProfileItem
+              name={'Email:'}
+              value={user.data.email}/>
+          </Col></Row>
         </Col>
       </Row>
       <Row>
-        <ProfilePostList posts={userPosts} />
+        <Col sm={12}>
+          <ProfilePostList posts={userPosts} />
+        </Col>
       </Row>
     </Grid>
   );

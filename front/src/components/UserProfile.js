@@ -15,17 +15,24 @@ class UserProfile extends React.Component {
   }
 
   componentDidMount() {
-    const { isFetching, user, dispatchGetUser, getUserPosts, offset, limit, match } = this.props;
+    const { isFetching, user,
+            offset, limit, match,
+            dispatchGetUser,
+            getUserPosts,
+            getFriendRelation } = this.props;
     //const { id } = match.params;
     const id = this.props.id;
 
     dispatchGetUser(id);
     getUserPosts(id, offset, limit);
-    //dispatchGetRelationWithUser
+    
+    if(id !== 'me') {
+      getFriendRelation(id);
+    }
   }
 
   render() {
-    const { isFetching, user, posts } = this.props;
+    const { isFetching, user, posts, userId, relation, makeFriends, currentUserId } = this.props;
 
     if(isFetching) {
       return <div>Loading...</div>
@@ -34,7 +41,12 @@ class UserProfile extends React.Component {
     if(user.data) {
       if(isAuth()) {
         return (
-          <FullUserProfile user={user} posts={posts} />
+          <FullUserProfile id={userId}
+                           user={user}
+                           posts={posts}
+                           relation={relation}
+                           onClick={makeFriends}
+                           currentUserId={currentUserId} />
         );
       }
 

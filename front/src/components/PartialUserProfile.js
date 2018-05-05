@@ -6,37 +6,34 @@ import Col from 'react-bootstrap/lib/Col';
 
 import UserProfileItem from './UserProfileItem';
 
+import styles from '../styles/components/UserProfile.scss';
+
 const PartialUserProfile = (props) => {
   const { user } = props;
 
   return (
-    <Grid fluid>
+    <Grid fluid className={styles.profileContainer}>
       <Row>
-        <Col>
-          <strong>{`${user.data.login}'s profile`}</strong>
-        </Col>
-      </Row>
-      <Row>
-        <Col sm={4}>
+        <Col sm={3}>
           <img width='150'
                height='150'
+               className={styles.avatar}
                src={user.data.avatar
                   ? user.data.avatar
                   : '/img/avatars/default_big.png'}
                alt='avatar' />
         </Col>
-        <Col sm={8}>
-        {/*profile data*/}
-          <Row>
+        <Col sm={7} className={styles.profileData}>
+          <Row><Col sm={12}>
             <UserProfileItem
               name={'First name'}
               value={user.data.firstName}/>
-          </Row>
-          <Row>
+          </Col></Row>
+          <Row><Col sm={12}>
             <UserProfileItem
               name={'Last name'}
               value={user.data.lastName}/>
-          </Row>
+          </Col></Row>
         </Col>
       </Row>
     </Grid>
