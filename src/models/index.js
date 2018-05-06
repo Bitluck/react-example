@@ -52,6 +52,7 @@ const CONFIG = configs.db;
 
 const sequelize = new Sequelize(CONFIG.database, CONFIG.user, CONFIG.password, {
   host: CONFIG.host,
+  port: CONFIG.port,
   dialect: CONFIG.sequelize.dialect,
   pool: CONFIG.sequelize.pool,
   logging: logger.debug.bind(logger),
