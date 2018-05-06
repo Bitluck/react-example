@@ -14,4 +14,25 @@ export default class FriendService {
 
     return { status: response.status, data: res.data };
   }
+
+  async getFriends(userId) {
+    const response = await get(`/users/${userId}/friends`);
+    const res = await response.json();
+
+    return { status: response.status, data: res.data };
+  }
+
+  async getInRequests(userId) {
+    const response = await get(`/users/${userId}/friends/requests/in`);
+    const res = await response.json();
+
+    return { status: response.status, data: res.data };
+  }
+
+  async getOutRequests(userId) {
+    const response = await get(`/users/${userId}/friends/requests/out`);
+    const res = await response.json();
+
+    return { status: response.status, data: res.data };
+  }
 }
