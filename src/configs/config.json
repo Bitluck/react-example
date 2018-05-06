@@ -34,6 +34,7 @@
   },
   "production": {
     "env": "production",
+    "NPM_CONFIG_PRODUCTION": true,
     "port": 3000,
     "db": {
       "host": "ec2-54-235-90-200.compute-1.amazonaws.com",

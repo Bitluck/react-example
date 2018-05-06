@@ -86,5 +86,4 @@ try {
   process.exit(err.code);
 }
 
-
 module.exports = db;
