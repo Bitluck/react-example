@@ -85,11 +85,13 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 //TODO: add success check
-
-try {
-  db.sequelize.sync();
-} catch(err) {
-  process.exit(err.code);
-}
+db.sequelize.sync()
+  .then(() => {
+    logger.info('db success sync');
+  })
+  .catch((err) => {
+    logger.error(`db failed sync with err: ${err}`);
+    process.exit(err.code);
+  });
 
 module.exports = db;
