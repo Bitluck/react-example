@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 
+import { connect } from 'react-redux';
+
 import PrivateRoute from './PrivateRoute';
 import LoginFormContainer from '../containers/LoginFormContainer';
 import RegisterFormContainer from '../containers/RegisterFormContainer';
@@ -10,7 +12,7 @@ import LogoutPage from '../components/LogoutPage';
 import LoginPage from '../views/LoginPage';
 import RegisterPage from '../views/RegisterPage';
 import PostPage from '../views/PostPage';
-import FeedPostList from '../containers/FeedPostList';
+import FriendsPage from '../views/FriendsPage';
 import Feed from './Feed';
 import NotFound from './NotFound';
 
@@ -24,6 +26,7 @@ const Main = () => (
       <PrivateRoute exact path='/login' auth={isUnauth} component={LoginPage} redirectPath={'/'}/>
       <PrivateRoute exact path='/register' auth={isUnauth} component={RegisterPage} redirectPath={'/'}/>
       <PrivateRoute exact path='/post' auth={isAuth} component={PostPage} redirectPath={'/'}/>
+      <PrivateRoute exact path='/friends' auth={isAuth} component={FriendsPage} redirectPath={'/'}/>
       <Route exact path='/logout' component={LogoutPage} />
       <Route exact path='/users/:id' render={
         props => { const id = props.match.params.id;
