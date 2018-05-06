@@ -16,7 +16,6 @@ const logMiddleware = require('./middlewares/log');
 const responseHandler = require('./middlewares/response-handler');
 
 const port = process.env.PORT || configs.port || 3000;
-process.env.PORT = port;
 const host = configs.host || '0.0.0.0';
 const app = new Koa();
 
