@@ -80,6 +80,11 @@ db.Sequelize = Sequelize;
 
 //TODO: add success check
 
-db.sequelize.sync();
+try {
+  db.sequelize.sync();
+} catch(err) {
+  process.exit(err.code);
+}
+
 
 module.exports = db;
