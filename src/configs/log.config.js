@@ -6,15 +6,15 @@ const { env, name } = require('./');
 
 const logDirectory = path.join(__dirname, '../../logs/');
 
-fs.access(logDirectory, fs.constants.R_OK | fs.constants.W_OK, err => {
-  if(err) {
-    fs.mkdir(logDirectory, err => {
-      if(err) {
-        process.exit(err.code);
-      }
-    });
+try {
+  fs.accessSync(logDirectory, fs.constants.R_OK | fs.constants.W_OK);
+} catch(err) {
+  try {
+    fs.mkdirSync(logDirectory);
+  } catch(error) {
+    process.exit(error.code);
   }
-});
+}
 
 const directory = process.env.LOG_DIRECTORY || logDirectory;
 const filename = process.env.LOG_FILENAME || `${name}.${env}.json.log`;
