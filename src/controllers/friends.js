@@ -82,12 +82,58 @@ const deleteFromFriends = ctx => {
   ctx.res.ok();
 }
 
-const getInRequests = ctx => {
-  ctx.res.ok();
+const getInRequests = async ctx => {
+  const userId = +ctx.params.id;
+
+  const friendRelations = await FriendRelation.findAll({
+    where: {
+      [Op.and]:[
+        {
+          state: RELATION_STATUS.request
+        },
+        {
+          user_to: userId
+        }
+      ]
+    }
+  });
+
+  const friendIds = friendRelations.map(rel => rel.user_from);
+
+  try {
+    const friends = await getUserList(friendIds);
+
+  return ctx.res.ok(friends);
+  } catch(err) {
+    return ctx.res.badRequest(err.message);
+  }
 }
 
-const getOutRequests = ctx => {
-  ctx.res.ok();
+const getOutRequests = async ctx => {
+  const userId = +ctx.params.id;
+
+  const friendRelations = await FriendRelation.findAll({
+    where: {
+      [Op.and]:[
+        {
+          state: RELATION_STATUS.request
+        },
+        {
+          user_from: userId
+        }
+      ]
+    }
+  });
+
+  const friendIds = friendRelations.map(rel => rel.user_to);
+
+  try {
+    const friends = await getUserList(friendIds);
+
+  return ctx.res.ok(friends);
+  } catch(err) {
+    return ctx.res.badRequest(err.message);
+  }
 }
 
 const isRelation = async ctx => {
