@@ -13,6 +13,16 @@ import { required, isEmail, maxLength, minLength } from '../utils/validate';
 
 import styles from '../styles/containers/RegisterFormContainer.scss';
 
+const validate = values => {
+  const errors = {};
+
+  if(values.password !== values.confirmPassword) {
+    errors.confirmPassword = 'Passwords not equals';
+  }
+
+  return errors;
+}
+
 const RegisterFormFirst = props => {
   const { handleSubmit, handleSubmitForm, dispatch, loginStatus, submitting } = props;
   return (
@@ -52,7 +62,7 @@ const RegisterFormFirst = props => {
       </Row>
       <Row>
         <Field
-          name="confirm-password"
+          name="confirmPassword"
           type="password"
           autoComplete="new-password"
           component={FormField}
@@ -74,6 +84,7 @@ const RegisterFormFirst = props => {
 
 export default reduxForm({
   form: 'register-form',
+  validate,
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true
 })(RegisterFormFirst);
