@@ -50,12 +50,12 @@ const operatorsAliases = {
 
 const CONFIG = configs.db;
 
-//const DATABASE_URL = 'postgres://gbkggplhpztkvt:a8bf3e3d98a9d2389f5270bc66f02d162078f665b71b68a10fab749db0612c86@ec2-54-235-90-200.compute-1.amazonaws.com:5432/deusm0541tpdrm';
-const HEROKU_POSTGRESQL_RED_URL = 'postgres://aivgptyoccooph:e6c132c3412cf8fbb1e1e21a4dd69ddba70aad1e9cc4a5814c5af1b7c6f7257c@ec2-54-225-200-15.compute-1.amazonaws.com:5432/db4hct7d22935s';
-const host = 'ec2-54-225-200-15.compute-1.amazonaws.com';
+const DATABASE_URL = 'postgres://gbkggplhpztkvt:a8bf3e3d98a9d2389f5270bc66f02d162078f665b71b68a10fab749db0612c86@ec2-54-235-90-200.compute-1.amazonaws.com:5432/deusm0541tpdrm';
+//const HEROKU_POSTGRESQL_RED_URL = 'postgres://aivgptyoccooph:e6c132c3412cf8fbb1e1e21a4dd69ddba70aad1e9cc4a5814c5af1b7c6f7257c@ec2-54-225-200-15.compute-1.amazonaws.com:5432/db4hct7d22935s';
+const host = 'ec2-54-235-90-200.compute-1.amazonaws.com';
 const port = 5432;
 
-const sequelize = new Sequelize(HEROKU_POSTGRESQL_RED_URL, {
+const sequelize = new Sequelize(DATABASE_URL, {
   host,
   port,
   dialect: CONFIG.sequelize.dialect,
