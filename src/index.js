@@ -16,6 +16,7 @@ const logMiddleware = require('./middlewares/log');
 const responseHandler = require('./middlewares/response-handler');
 
 const port = configs.port || process.env.PORT || 3000;
+process.env.PORT = port;
 const host = configs.host || '0.0.0.0';
 const app = new Koa();
 
@@ -68,4 +69,3 @@ app.on('error', err => {
 app.listen(port, host, () => {
   logger.info(`Server is started on ${host}:${port} in ${configs.env}`);
 });
-
