@@ -16,6 +16,7 @@ const logMiddleware = require('./middlewares/log');
 const responseHandler = require('./middlewares/response-handler');
 
 const port = configs.port || process.env.PORT;
+const host = configs.host || '0.0.0.0';
 const app = new Koa();
 
 app.use(bodyParser());
@@ -59,5 +60,12 @@ compiler.watch({}, () => {
   logger.info('building...');
 });
 
-app.listen(port);
-logger.info(`Server is started on ${port} port in ${configs.env}`);
+app.on('error', err => {
+  logger.error({ err, event: 'error' }, 'Unhandled exception occured');
+});
+
+
+app.listen(port, host, () => {
+  logger.info(`Server is started on ${host}:${port} in ${configs.env}`);
+});
+
