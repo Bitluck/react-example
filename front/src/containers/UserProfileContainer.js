@@ -18,7 +18,7 @@ const mapStateToProps = state => {
     offset: state.post.offset,
     limit: state.post.limit,
     relation: state.friend.relation,
-    currentUserId: state.user.currentUser.id
+    currentUserId: state.user.currentUser && state.user.currentUser.id
   }
 }
 
