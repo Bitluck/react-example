@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run prod",
     "dev": "NODE_ENV=development node src/index.js | bunyan",
-    "prod": "NODE_ENV=production node src/index.js | bunyan",
+    "prod": "NODE_ENV=production node --optimize-for-size --max-old-space-size=500 --gc-interval=100 src/index.js | bunyan",
     "build": "webpack --config webpack.prod.js",
     "pm2": "pm2-runtime --env development --raw process.json | bunyan",
     "test": "echo \"Error: no test specified\" && exit 1",
