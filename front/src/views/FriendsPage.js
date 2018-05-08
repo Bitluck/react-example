@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Helmet } from 'react-helmet';
 
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
@@ -89,6 +90,9 @@ class FriendsPage extends React.Component {
 
     return (
       <Col sm={12}>
+      <Helmet>
+        <title>Friends - Social Network</title>
+      </Helmet>
         <Tabs
           name='friendsTabs'
           renderActiveTabContentOnly={true}
@@ -108,15 +112,27 @@ class FriendsPage extends React.Component {
 
           <div style={styles.content}>
             <TabContent for='friendsTab'>
+              <Helmet>
+                <title>All friends - Social Network</title>
+              </Helmet>
               <UserList users={friendsData} />
             </TabContent>
             <TabContent for='requestInTab'>
+              <Helmet>
+                <title>In requests - Social Network</title>
+              </Helmet>
               <UserList users={friendsData} />
             </TabContent>
             <TabContent for='requestOutTab'>
+              <Helmet>
+                <title>Out requests - Social Network</title>
+              </Helmet>
               <UserList users={friendsData} />
             </TabContent>
             <TabContent for='searchTab'>
+              <Helmet>
+                <title>Search users - Social Network</title>
+              </Helmet>
               <p>Search ...coming soon</p>
               <UserList users={searchResult} />
             </TabContent>

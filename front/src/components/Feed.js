@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
+import { Helmet } from 'react-helmet';
 
 import FeedPostList from '../containers/FeedPostList';
 import { getFeedPostsRequest } from '../actions/postActions';
@@ -29,6 +30,9 @@ class Feed extends React.Component {
 
     return (
       <Grid fluid>
+        <Helmet>
+          <title>Feed - Social Network</title>
+        </Helmet>
         <Row className="dynamic render posts _map">
           <Col>
             <FeedPostList posts={feedPosts}/>

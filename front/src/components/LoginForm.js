@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import Redirect from 'react-router-dom/Redirect';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
@@ -9,14 +10,14 @@ import { Link } from 'react-router-dom';
 
 import { loginRequest } from '../actions/authActions';
 import { required, maxLength, minLength } from '../utils/validate';
+import { isAuth } from '../middleware/isAuth';
 
 import styles from '../styles/components/LoginForm.scss';
-import Redirect from 'react-router-dom/Redirect';
 
 const LoginForm = props => {
   const { handleSubmit, handleSubmitForm, dispatch, loginStatus, submitting } = props;
 
-  if(props.loggedIn) {
+  if(isAuth()) {
     return <Redirect to={'/users/me'} />
   }
   

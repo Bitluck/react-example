@@ -3,6 +3,7 @@ import React from 'react';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
+import { Helmet } from 'react-helmet';
 
 import UserProfileItem from './UserProfileItem';
 import PostList from './PostList';
@@ -47,6 +48,13 @@ const FullUserProfile = (props) => {
 
   return (
     <Grid fluid className={styles.profileContainer}>
+      <Helmet>
+        <title>
+        {user.data.id == currentUserId
+        ? 'Me profile - Social Network'
+        : `${user.data.firstName}'s profile - Social Network` }
+        </title>
+      </Helmet>
       <Row>
         <Col sm={4}>
           <img width='200'
