@@ -1,24 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
 
 import { logoutRequest } from '../actions/authActions';
 
 class LogoutPage extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.dispatch(logoutRequest());
   }
 
   render() {
-    return (
-      <Redirect to='/' />
-    );
+    localStorage.removeItem('loggedIn');
+    return <Redirect to='/' />;
   }
 }
 
 LogoutPage.propTypes = {
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool.isRequired
 }
 
-export default connect()(LogoutPage);
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.auth.loggedIn
+  }
+}
+
+export default connect(mapStateToProps)(LogoutPage);
