@@ -1,7 +1,7 @@
 'use strict';
 
 const Koa = require('koa');
-const webpack = require('webpack');
+const compiler = require('./configs/webpack.config');
 const bodyParser = require('koa-bodyparser');
 const SequelizeStore = require('koa-generic-session-sequelize');
 const session = require('koa-session');
@@ -41,19 +41,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(responseHandler());
-
-const webpackConfiguration = process.env.NODE_ENV === 'production'
-                                                      ? require('../webpack.prod.js')
-                                                      : require('../webpack.dev.js');
-
-const compiler = webpack(webpackConfiguration, (err, stats) => {
-  if (err || stats.hasErrors()) {
-    logger.info('There are webpack exception', err, stats.toJson('minimal'));
-    return;
-  }
-  
-  logger.info('webpack initialized successfully');
-});
 
 compiler.watch({}, () => {
   logger.info('building...');
