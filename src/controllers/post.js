@@ -66,6 +66,10 @@ const createNewPost = async ctx => {
   const { fields, files } = ctx.request.formData;
   const { text } = fields;
   const { picture } = files;
+
+  if(!text && !picture) {
+    return ctx.res.badRequest(null, 'Empty post');
+  }
   
   const picturePath = picture ?
                       path.join(publicPicturePath, path.parse(picture.path).base)
