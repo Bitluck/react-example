@@ -1,7 +1,7 @@
 'use strict';
 
 const Koa = require('koa');
-const compiler = require('./configs/webpack.config');
+//require('./configs/webpack.config');
 const bodyParser = require('koa-bodyparser');
 const SequelizeStore = require('koa-generic-session-sequelize');
 const session = require('koa-session');
@@ -42,10 +42,6 @@ app.use(passport.session());
 
 app.use(responseHandler());
 
-compiler.watch({}, () => {
-  logger.info('building...');
-});
-
 app.use(serve('public'));
 
 app.use(router.routes());
@@ -54,7 +50,6 @@ app.use(router.allowedMethods());
 app.on('error', err => {
   logger.error({ err, event: 'error' }, 'Unhandled exception occured');
 });
-
 
 app.listen(port, host, () => {
   logger.info(`Server is started on ${host}:${port} in ${configs.env}`);
