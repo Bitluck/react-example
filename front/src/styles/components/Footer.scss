@@ -1,6 +1,25 @@
 .footer {
+  border-top: 1px solid #ddd;
   color: green;
   flex: 0 0 auto;
   text-align: center;
-  background: #78dea0;
+  padding: 20px;
+  line-height: 30px;
+  //background: #78dea0;
+}
+
+.footerBlock {
+  text-align: center;
+}
+
+.aboutBlock {
+  text-align: left;
+}
+
+.centerBlock {
+  text-align: center;
+}
+
+.authorBlock {
+  text-align: right;
 }
