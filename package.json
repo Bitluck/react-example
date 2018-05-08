@@ -14,7 +14,7 @@
     "docker-start": "docker-compose up",
     "docker-clean": "docker-compose stop && docker-compose down --rmi local --volumes --remove-orphans",
     "eslint": "eslint --color ./",
-    "postinstall": "cd front && npm i && cd ..",
+    "postinstall": "cd front && npm i && cd .. && npm run build",
     "precommit": "npm run eslint"
   },
   "repository": {
