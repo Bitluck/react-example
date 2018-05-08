@@ -1,7 +1,7 @@
 'use strict';
 
+require('./configs/webpack.config');
 const Koa = require('koa');
-//require('./configs/webpack.config');
 const bodyParser = require('koa-bodyparser');
 const SequelizeStore = require('koa-generic-session-sequelize');
 const session = require('koa-session');
