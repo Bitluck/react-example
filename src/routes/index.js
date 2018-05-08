@@ -12,5 +12,5 @@ const apiRouter = new Router({ prefix: '/api' })
   .use('/posts', postsRouter.routes(), postsRouter.allowedMethods());
 
 module.exports = new Router()
-  .use(apiRouter.routes())
-  .use(staticRouter.routes());
+  .use(apiRouter.routes(), apiRouter.allowedMethods())
+  .use(staticRouter.routes(), staticRouter.allowedMethods());
