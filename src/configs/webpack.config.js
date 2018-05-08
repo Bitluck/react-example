@@ -1,5 +1,19 @@
+const fs = require('fs');
+const path = require('path');
 const webpack = require('webpack');
 const logger = require('./logger');
+
+const bundlesDirectory = path.join(__dirname, '../../public/dist');
+
+try {
+  fs.accessSync(bundlesDirectory, fs.constants.R_OK | fs.constants.W_OK);
+} catch(err) {
+  try {
+    fs.mkdirSync(bundlesDirectory);
+  } catch(error) {
+    process.exit(error.code);
+  }
+}
 
 const webpackConfiguration = process.env.NODE_ENV === 'production'
                                                       ? require('../../webpack.prod.js')
