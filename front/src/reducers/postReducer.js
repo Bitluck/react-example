@@ -1,6 +1,8 @@
 import { POST_GET_REQUEST,
          POST_GET_SUCCESS,
          POST_PICTURE_CHOOSE,
+         POST_CREATE_SUCCESS,
+         POST_CREATE_FAILED,
          GET_USER_POSTS_REQUEST,
          GET_FEED_POSTS_REQUEST,
          GET_USER_POSTS_SUCCESS,
@@ -19,7 +21,10 @@ const initialState = {
   offset: 0,
   limit: 10,
   feedOffset: 0,
-  feedLimit: 10
+  feedLimit: 10,
+  postData: {},
+  msg: '',
+  isCreateSuccess: false
 }
 
 export default function postReducer(state = initialState, action) {
@@ -32,6 +37,10 @@ export default function postReducer(state = initialState, action) {
       return { ...state, payload, isFetching: false };
     case POST_PICTURE_CHOOSE:
       return { ...state, files: payload.files };
+    case POST_CREATE_SUCCESS:
+      return { ...state, postData: payload, msg: '', isCreateSuccess: true };
+    case POST_CREATE_FAILED:
+      return { ...state, msg: payload, isCreateSuccess: false };
     case GET_USER_POSTS_REQUEST:
       return { ...state, posts: [], offset: 0, limit: 10, loadMore: true };
     case GET_USER_MORE_POSTS_REQUEST:

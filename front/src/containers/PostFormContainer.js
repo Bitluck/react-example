@@ -7,7 +7,7 @@ import { postCreateRequest, postGetRequest } from '../actions/postActions';
 
 const mapStateToProps = (state) => {
   return {
-    postStatus: '',
+    postStatus: state.post.msg,
     files: state.post.files,
     loggedIn: true
   }
@@ -27,6 +27,7 @@ const mapStateToProps = (state) => {
 
 const mergeProps = (props, dispatchProps) => {
   return {
+    postStatus: props.postStatus,
     handleSubmitForm: (formData) => {
       dispatchProps.dispatch(postCreateRequest({ text: formData, picture: props.files[0] || null }));
     },
@@ -36,7 +37,7 @@ const mergeProps = (props, dispatchProps) => {
   }
 }
 
-const PostFormConnected = connect(mapStateToProps, /*mapDispatchToProps*/ null, mergeProps)(PostForm);
+const PostFormConnected = connect(mapStateToProps, null, mergeProps)(PostForm);
 
 /*const PostFormConnected = reduxForm({
   form: 'postForm',

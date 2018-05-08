@@ -9,22 +9,26 @@ import { POST_CREATE_REQUEST,
 import { getUserPostsSuccess,
          getUserPostsFailed,
          getFeedPostsSuccess,
-         getFeedPostsFailed } from '../actions/postActions';
+         getFeedPostsFailed,
+         postCreateSuccess,
+         postCreateFailed } from '../actions/postActions';
 import PostService from '../services/PostService';
 
 const postService = new PostService();
 
 function* createPost(action) {
   try {
-    const post = yield call(postService.createPost, action.payload);
+    const params = action.payload;
+
+    const post = yield call(postService.createPost, params);
     if(post.status === 200) {
       
-      //yield put(createPostSuccess({ status: user.status, data: user.data }));
+      yield put(postCreateSuccess({ status: post.status, data: post.data }));
     } else {
-      //yield put(createPostFailed(user.message));
+      yield put(postCreateFailed(post.message));
     }
   } catch(err) {
-    //yield put(createPostFailed(err.message));
+    yield put(postCreateFailed(err.message));
   }
 }
 

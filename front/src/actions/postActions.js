@@ -9,7 +9,8 @@ import { POST_CREATE_REQUEST,
          GET_FEED_POSTS_SUCCESS,
          GET_FEED_POSTS_FAILED,
          GET_USER_MORE_POSTS_REQUEST,
-         GET_FEED_MORE_POSTS_REQUEST } from '../constants/postActionTypes';
+         GET_FEED_MORE_POSTS_REQUEST, 
+         POST_CREATE_FAILED} from '../constants/postActionTypes';
 
 export function postPictureChoose(files) {
   return {
@@ -29,6 +30,20 @@ export function postCreateRequest(postData) {
   return {
     type: POST_CREATE_REQUEST,
     payload: { postData }
+  }
+}
+
+export function postCreateSuccess(postData) {
+  return {
+    type: POST_CREATE_SUCCESS,
+    payload: postData
+  }
+}
+
+export function postCreateFailed(msg) {
+  return {
+    type: POST_CREATE_FAILED,
+    payload: msg
   }
 }
 
