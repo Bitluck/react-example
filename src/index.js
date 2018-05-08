@@ -47,7 +47,7 @@ app.use(serve('public'));
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-const webpackConfiguration = process.env.NODEE_ENV === 'production'
+const webpackConfiguration = process.env.NODE_ENV === 'production'
                                                       ? require('../webpack.prod.js')
                                                       : require('../webpack.dev.js');
 
