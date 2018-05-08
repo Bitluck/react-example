@@ -47,6 +47,16 @@ class Header extends React.Component {
               <img src="/img/logo/logo.png" alt="logo" className={styles.logoImg} />
             </Link>
           </Col>
+          <Col sm={6} className={styles.logButton}>
+            { isAuth()
+              ? (
+              <Link to='/logout'>
+                <button>Logout</button>
+              </Link>
+              )
+              : (<div></div>)
+            }
+          </Col>
         </Row>
       </Grid>
     );
