@@ -45,6 +45,10 @@ function formidablePromise (req, opts = {}, fileFields = []) {
 
 const parseForm = async (ctx, next) => {
   try {
+    if(ctx.req.headers['content-length'] > opts.maxFileSize) {
+      return ctx.res.badRequest(null, 'Picture too large. Max file size 2Mb.');
+    }
+
     ctx.request.formData = await formidablePromise(ctx.req, opts, ['picture']);
   } catch(err) {
     return ctx.res.badRequest(null, err.message);
