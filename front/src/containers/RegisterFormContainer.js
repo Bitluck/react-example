@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Redirect from 'react-router-dom/Redirect';
 import PropTypes from 'prop-types';
 
 import Grid from 'react-bootstrap/lib/Grid';
@@ -16,7 +17,11 @@ import styles from '../styles/containers/RegisterFormContainer.scss';
 
 class RegisterFormContainer extends React.Component {
   render() {
-    const { page, onSubmit, nextPage, prevPage, registerStatus } = this.props;
+    const { page, onSubmit, nextPage, prevPage, registerStatus, isReq } = this.props;
+
+    if(isReq) {
+      return <Redirect to={'/'} />
+    }
 
     return (
       <Grid fluid styles={styles.registerForm}>
@@ -61,7 +66,8 @@ RegisterFormContainer.propTypes = {
 const mapStateToProps = state => {
   return {
     page: state.auth.page,
-    registerStatus: state.auth.payload.registerMsg
+    registerStatus: state.auth.payload.registerMsg,
+    isReq: state.auth.isSuccessRegister
   }
 }
 

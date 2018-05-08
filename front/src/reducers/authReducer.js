@@ -16,6 +16,7 @@ const initialState = {
   payload: {},
   page: 1,
   isRequesting: true,
+  isSuccessRegister: false,
   loggedIn: isAuth()
 }
 
@@ -31,8 +32,10 @@ export default function authReducer(state = initialState, action) {
       return { ...state, payload, loggedIn: true };
     case AUTH_LOGIN_FAILED:
       return { ...state, payload };
+    case AUTH_REGISTER_SUCCESS:
+      return { ...state, isSuccessRegister: true };
     case AUTH_REGISTER_FAILED:
-      return { ...state, payload };
+      return { ...state, payload, isSuccessRegister: false };
     case AUTH_LOGOUT_SUCCESS:
       return { ...state, loggedIn: false };
     case AUTH_REGISTER_FORM_NEXT_PAGE:
