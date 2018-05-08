@@ -42,11 +42,6 @@ app.use(passport.session());
 
 app.use(responseHandler());
 
-app.use(serve('public'));
-
-app.use(router.routes());
-app.use(router.allowedMethods());
-
 const webpackConfiguration = process.env.NODE_ENV === 'production'
                                                       ? require('../webpack.prod.js')
                                                       : require('../webpack.dev.js');
@@ -63,6 +58,11 @@ const compiler = webpack(webpackConfiguration, (err, stats) => {
 compiler.watch({}, () => {
   logger.info('building...');
 });
+
+app.use(serve('public'));
+
+app.use(router.routes());
+app.use(router.allowedMethods());
 
 app.on('error', err => {
   logger.error({ err, event: 'error' }, 'Unhandled exception occured');
