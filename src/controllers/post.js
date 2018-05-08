@@ -1,8 +1,11 @@
 'use strict';
 
+const fs = require('fs');
 const path = require('path');
 const { Post, FriendRelation, User, Profile, Sequelize } = require('../models');
 const Op = Sequelize.Op;
+
+const pictureDirectory = require('../configs/post.config');
 
 const publicPicturePath = '/img/posts';
 
@@ -75,6 +78,7 @@ const createNewPost = async ctx => {
   };
 
   try {
+    fs.accessSync(pictureDirectory, fs.constants.R_OK | fs.constants.W_OK);
     const createdPost = await Post.create(post);
     return ctx.res.ok(createdPost);
   } catch(err) {
