@@ -7,23 +7,35 @@ import Col from 'react-bootstrap/lib/Col';
 
 import { NavLink } from 'react-router-dom';
 
+import styles from '../styles/components/NavigationMenu.scss';
+
 const NavigationMenu = props => {
   return (
-    <Grid>
+    <Grid fluid>
       <Row>
-        <NavLink to={`/users/me`}>My profile</NavLink>
+        <Col sm={12} className={styles.navigationMenuItem}>
+          <NavLink to={`/users/me`} className={styles.navigationLink}><div>My profile</div></NavLink>
+        </Col>
       </Row>
       <Row>
-        <NavLink to={`/`}>Feed</NavLink>
+        <Col sm={12} className={styles.navigationMenuItem}>
+          <NavLink to={`/`} className={styles.navigationLink}><div>Feed</div></NavLink>
+        </Col>
       </Row>
       <Row>
-        <NavLink to={'/friends'}>Friends</NavLink>
+        <Col sm={12} className={styles.navigationMenuItem}>
+          <NavLink to={'/friends'} className={styles.navigationLink}><div>Friends</div></NavLink>
+        </Col>
       </Row>
       <Row>
-        <NavLink to={'/post'}>Create post</NavLink>
+        <Col sm={12} className={styles.navigationMenuItem}>
+          <NavLink to={'/post'} className={styles.navigationLink}><div>Create post</div></NavLink>
+        </Col>
       </Row>
       <Row>
-        <NavLink to={`/logout`}>Logout</NavLink>
+        <Col sm={12} className={styles.navigationMenuItem}>
+          <NavLink to={`/logout`} className={styles.navigationLink}><div>Logout</div></NavLink>
+        </Col>
       </Row>
     </Grid>
   );
