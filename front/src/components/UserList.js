@@ -12,7 +12,7 @@ const UserList = props => {
     <div>
       {users && users.length > 0
         ? users.map(user => <Row key={user.id}><UserListItem user={user}/></Row>)
-        : 'List is empty' }
+        : 'List of users is empty' }
     </div>
   )
 }
