@@ -9,6 +9,7 @@ const mapStateToProps = (state) => {
   return {
     postStatus: state.post.msg,
     files: state.post.files,
+    isCreateSuccess: state.post.isCreateSuccess,
     loggedIn: true
   }
 }
@@ -28,6 +29,7 @@ const mapStateToProps = (state) => {
 const mergeProps = (props, dispatchProps) => {
   return {
     postStatus: props.postStatus,
+    isCreateSuccess: props.isCreateSuccess,
     handleSubmitForm: (formData) => {
       dispatchProps.dispatch(postCreateRequest({ text: formData, picture: props.files[0] || null }));
     },

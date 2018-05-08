@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import Redirect from 'react-router-dom/Redirect';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
@@ -12,12 +13,15 @@ import { postPictureChoose } from '../actions/postActions'
 import { required, maxLength } from '../utils/validate';
 
 import styles from '../styles/components/PostForm.scss';
-import Redirect from 'react-router-dom/Redirect';
 
 class PostForm extends React.Component {
   
   render() {
-    const { handleSubmit, handleSubmitForm, dispatch, postStatus, submitting } = this.props;
+    const { handleSubmit, handleSubmitForm, dispatch, postStatus, submitting, isCreateSuccess } = this.props;
+
+    if(isCreateSuccess) {
+      return <Redirect to={'/users/me'} />
+    }
 
     return (
       <Grid fluid className={styles.postForm}>
