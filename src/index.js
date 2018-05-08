@@ -47,7 +47,11 @@ app.use(serve('public'));
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-const compiler = webpack(require('../webpack.config.js'), (err, stats) => {
+const webpackConfiguration = process.env.NODEE_ENV === 'production'
+                                                      ? require('../webpack.prod.js')
+                                                      : require('../webpack.dev.js');
+
+const compiler = webpack(webpackConfiguration, (err, stats) => {
   if (err || stats.hasErrors()) {
     logger.info('There are webpack exception', err, stats.toJson('minimal'));
     return;
