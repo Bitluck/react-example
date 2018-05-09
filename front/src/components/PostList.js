@@ -15,7 +15,9 @@ const PostList = props => {
         ? <Row className={styles.loadMore}>
             <button onClick={() => getMorePosts(offset+limit, limit, user.data ? user.data.id : 0)}>Load moar</button>
           </Row>
-        : 'List of posts is empty' }
+        : <Row className={styles.postsEnd}>
+            Posts yet not.
+          </Row>}
     </div>
   )
 }
