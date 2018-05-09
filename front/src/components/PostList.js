@@ -16,7 +16,7 @@ const PostList = props => {
             <button onClick={() => getMorePosts(offset+limit, limit, user.data ? user.data.id : 0)}>Load moar</button>
           </Row>
         : <Row className={styles.postsEnd}>
-            Posts yet not.
+            No more posts
           </Row>}
     </div>
   )
