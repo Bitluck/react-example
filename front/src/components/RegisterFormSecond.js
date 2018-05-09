@@ -10,7 +10,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 
 import { loginRequest } from '../actions/authActions';
-import { required, maxLength, minLength } from '../utils/validate';
+import { required, maxLength, minLength, birthDateLessThanNow } from '../utils/validate';
 
 import { genders } from '../constants/genders';
 
@@ -62,7 +62,7 @@ const RegisterFormSecond = props => {
           autoComplete="birthdate"
           component={FormField}
           label="Birthdate"
-          validate={[required]} />
+          validate={[required, birthDateLessThanNow]} />
       </Row>
       <Row className={styles.button}>
         <button type="button" className="previous" onClick={prevPage}>Previous</button>
