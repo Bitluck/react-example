@@ -51,7 +51,7 @@ const FullUserProfile = (props) => {
       <Helmet>
         <title>
         {user.data.id == currentUserId
-        ? 'Me profile - Social Network'
+        ? 'My profile - Social Network'
         : `${user.data.firstName}'s profile - Social Network` }
         </title>
       </Helmet>
