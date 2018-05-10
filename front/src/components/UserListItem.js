@@ -17,10 +17,10 @@ const UserListItem = props => {
   return (
     <Col sm={12}>
       <Row className={styles.friendItem}>
-        <Col sm={2}>
+        <Col sm={2} xs={3}>
           <img className={styles.userAvatar} src={`${user.avatar || defaultSmallAvatar}`} alt="userpic" />
         </Col>
-        <Col sm={10} className={styles.friendInfo}>
+        <Col sm={10} xs={9} className={styles.friendInfo}>
           <Link to={`/users/${user.id}`}>{`${user.firstName} ${user.lastName}`}</Link>
         </Col>
       </Row>

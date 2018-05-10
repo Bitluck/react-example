@@ -18,7 +18,7 @@ const PartialUserProfile = (props) => {
         <title>{`${user.data.firstName}'s profile - Social Network`}</title>
       </Helmet>
       <Row>
-        <Col sm={3}>
+        <Col sm={3} xs={6}>
           <img width='150'
                height='150'
                className={styles.avatar}
@@ -27,7 +27,7 @@ const PartialUserProfile = (props) => {
                   : '/img/avatars/default_big.png'}
                alt='avatar' />
         </Col>
-        <Col sm={7} className={styles.profileData}>
+        <Col sm={7} xs={6} className={styles.profileData}>
           <Row><Col sm={12}>
             <UserProfileItem
               name={'First name'}

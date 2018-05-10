@@ -17,10 +17,10 @@ const Post = props => {
   return (
     <Grid fluid className={styles.post}>
       <Row className={styles.authorInfo}>
-        <Col sm={1}>
+        <Col sm={1} xs={2} className={styles.avatarContainer}>
           <img src={`${data.user.avatar || defaultSmallAvatar}`} alt="userpic" width='50' height='50'/>
         </Col>
-        <Col sm={11}>
+        <Col sm={10} xs={19}>
           <Row>
             <Link to={`/users/${data.user.id}`}>{`${data.user.firstName} ${data.user.lastName}`}</Link>
           </Row>

@@ -56,7 +56,7 @@ const FullUserProfile = (props) => {
         </title>
       </Helmet>
       <Row>
-        <Col sm={4}>
+        <Col sm={4} xs={6}>
           <img width='200'
               height='200'
               className={styles.avatar}
@@ -66,7 +66,7 @@ const FullUserProfile = (props) => {
               alt='avatar' />
           {friendElement}
         </Col>
-        <Col sm={8} className={styles.profileData}>
+        <Col sm={8} xs={6} className={styles.profileData}>
           <Row><Col sm={12} className={styles.profileDataTop}>
               {`${user.data.firstName} ${user.data.lastName}`}
           </Col></Row>
