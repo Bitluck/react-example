@@ -8,6 +8,7 @@
     "dev": "NODE_ENV=development node src/index.js | bunyan",
     "prod": "NODE_ENV=production NPM_CONFIG_PRODUCTION=true node --optimize_for_size --max_old_space_size=500 --gc_interval=100 src/index.js | bunyan",
     "build": "webpack --config webpack.prod.js",
+    "gen-data": "node generate-data.js",
     "pm2": "pm2-runtime --env development --raw process.json | bunyan",
     "test": "echo \"Error: no test specified\" && exit 1",
     "docker-build": "docker-compose build --no-cache",
@@ -29,6 +30,7 @@
     "babel-core": "^6.26.0",
     "bcrypt": "^1.0.3",
     "bunyan": "^1.8.12",
+    "fakerator": "^0.3.0",
     "file-type": "^7.6.0",
     "formidable": "^1.2.1",
     "koa": "^2.5.0",
@@ -69,8 +71,8 @@
     "uglifyjs-webpack-plugin": "^1.2.4",
     "webpack": "^3.11.0",
     "webpack-cli": "^2.0.15"
-  }, 
-  "engines": { 
+  },
+  "engines": {
     "node": "8.9.0",
     "npm": "5.5.1"
   }
