@@ -12,7 +12,7 @@ This repo contains the study project of social network for TT Developers School 
 # How run project
 
 ## Heroku
-[Project on heroku](https://tt-school-project-template.herokuapp.com/) ( ⚠ recommended use VPN or proxy, 'cause Heroku may not be available)
+[Project on heroku](https://tt-school-aschukin.herokuapp.com/) ( ⚠ recommended use VPN or proxy, 'cause Heroku may not be available)
 
 ### Test user
 * login: test
@@ -33,6 +33,8 @@ This repo contains the study project of social network for TT Developers School 
 # Generating test data
 
 `npm run gen-data` : script for generating test data
+
+[before generating data need to start the server 🚀]
 
 ### Environment variables for generating test data
 * `USERS_COUNT`          : count of users (default: 20)
