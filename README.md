@@ -1,4 +1,4 @@
-# TT Developers School project template
+# TT Developers School project
 
 This repo contains the study project of social network for TT Developers School 2017-2018.
 
