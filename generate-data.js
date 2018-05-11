@@ -25,11 +25,11 @@ try {
   }
 }
 
-const usersCount = process.env.USERS_COUNT || 10;
+const usersCount = process.env.USERS_COUNT || 20;
 const postsPerUserCount = process.env.POSTS_PER_USER_COUNT || 25;
 const relationsCount = process.env.RELATIONS_COUNT
                      ? process.env.RELATIONS_COUNT % (usersCount * (usersCount - 1) / 2)
-                     : (usersCount * (usersCount - 1) / 4);
+                     : Math.ceil(usersCount * (usersCount - 1) / 3);
 const onlyKittens = process.env.ONLY_KITTENS || false;
 
 const genders = ['male', 'female', 'other', 'rather not say'];
@@ -216,7 +216,7 @@ sequelize.sync().then(async () => {
   }
 
   for (let i = 0; i < users.length; ++i) {
-    const postsCount = fakerator.random.number(postsPerUserCount + 3);
+    const postsCount = fakerator.random.number(postsPerUserCount + 7);
     for (let j = 0; j < postsCount; ++j) {
       const post = await generatePost(users[i].id, i === users.length-1 && j === postsCount-1);
 
