@@ -237,4 +237,4 @@ sequelize.sync().then(async () => {
   }
 })
   .then(() => process.exit(0))
-  .catch(err => logger.error(err));
+  .catch(err => ( logger.error(err), process.exit(0) ));
