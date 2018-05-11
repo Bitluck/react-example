@@ -12,7 +12,11 @@ This repo contains the study project of social network for TT Developers School 
 # How run project
 
 ## Heroku
-[Project on heroku](https://tt-school-project-template.herokuapp.com/) (recommended use VPN or proxy)
+[Project on heroku](https://tt-school-project-template.herokuapp.com/) ( ⚠ recommended use VPN or proxy, 'cause Heroku may not be available)
+
+### Test user
+* login: test
+* password: test
 
 ## Local
 
@@ -31,9 +35,9 @@ This repo contains the study project of social network for TT Developers School 
 `npm run gen-data` : script for generating test data
 
 ### Environment variables for generating test data
-* `USERS_COUNT`          : count of users (default: 10)
-* `POSTS_PER_USER_COUNT` : count of posts for each user (default: in interval 3-25)
-* `RELATIONS_COUNT`      : count of friend relations (default: (`USERS_COUNT` * (`USERS_COUNT` - 1) / 4) )
+* `USERS_COUNT`          : count of users (default: 20)
+* `POSTS_PER_USER_COUNT` : count of posts for each user (default: in interval 7-32)
+* `RELATIONS_COUNT`      : count of friend relations (default: (`USERS_COUNT` * (`USERS_COUNT` - 1) / 3) )
 * `ONLY_KITTENS`         : generating picture for posts with only kittens :) (default: false)
 
 ### Test user after generating
