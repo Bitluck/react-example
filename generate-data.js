@@ -236,4 +236,5 @@ sequelize.sync().then(async () => {
     logger.info(`generated ${relations.length} relations of ${relationsCount}`);
   }
 })
-  .then(() => process.exit(0));
+  .then(() => process.exit(0))
+  .catch(err => logger.error(err));
