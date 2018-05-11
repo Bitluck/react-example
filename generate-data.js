@@ -31,6 +31,7 @@ const relationsPerUserCount = process.env.RELATIONS_PER_USER_COUNT
   ? process.env.RELATIONS_PER_USER_COUNT % usersCount
   : 5;
 const relationsCount = usersCount * relationsPerUserCount;
+const onlyKittens = process.env.ONLY_KITTENS || false;
 
 const genders = ['male', 'female', 'other', 'rather not say'];
 
@@ -110,7 +111,7 @@ const generatePostPicture = async () => {
   const height = fakerator.random.number(100, 1000);
   const width = fakerator.random.number(height / 2, 1000);
   const pictureId = fakerator.random.number(0, 1084);
-  const pictureUrl = process.env.ONLY_CATS
+  const pictureUrl = onlyKittens
                      ? `http://placekitten.com/${width}/${height}`
                      : `http://picsum.photos/${width}/${height}/?${pictureId}`;
   const pictureFullPath = path.join(postPictureDirectory, pictureName);
