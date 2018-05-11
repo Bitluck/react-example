@@ -42,7 +42,7 @@ export default function postReducer(state = initialState, action) {
     case POST_CREATE_FAILED:
       return { ...state, msg: payload, isCreateSuccess: false };
     case GET_USER_POSTS_REQUEST:
-      return { ...state, posts: [], offset: 0, limit: 10, loadMore: true };
+      return { ...state, posts: [], offset: 0, limit: 10, loadMore: true, isCreateSuccess: false };
     case GET_USER_MORE_POSTS_REQUEST:
       return { ...state, offset: state.offset + state.limit };
     case GET_FEED_POSTS_REQUEST:
