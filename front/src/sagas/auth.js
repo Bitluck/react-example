@@ -18,8 +18,6 @@ function* loginUser(action) {
 
     if(user.status === 200) {
       localStorage.loggedIn = true;
-
-      console.log({ u: user });
       
       yield all([
         put(loginSuccess({ status: user.status, data: user.data })),

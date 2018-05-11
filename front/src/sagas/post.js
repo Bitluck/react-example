@@ -36,8 +36,6 @@ function* getUserPosts(action) {
   try {
     const posts = yield call(postService.getUserAllPosts, action.payload);
 
-    console.log({ posts });
-
     yield put(getUserPostsSuccess(posts));
   } catch(err) {
     yield put(getUserPostsFailed(err.message));
@@ -47,8 +45,6 @@ function* getUserPosts(action) {
 function* getFeedPosts(action) {
   try {
     const posts = yield call(postService.getFeedPosts, action.payload);
-
-    console.log({ posts });
 
     yield put(getFeedPostsSuccess(posts));
   } catch(err) {

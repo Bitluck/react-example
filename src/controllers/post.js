@@ -115,8 +115,6 @@ const getFeedPosts = async ctx => {
     const friendsId = await friendRelations.map(rel => (rel.user_from === userId) ? rel.user_to
                                                                                   : rel.user_from);
 
-    //console.log({ friendsId });
-
     posts = await Post.findAll({
       where: {
         user_id: {
