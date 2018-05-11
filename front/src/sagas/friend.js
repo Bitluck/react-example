@@ -71,6 +71,12 @@ function* getUserInRequests(action) {
 
 function* getUserOutRequests(action) {
   try {
+    let id = action.payload.userId;
+    if(!id) {
+      const user = yield call(userService.getCurrentUser);
+      id = user.data.id;
+    }
+    
     const res = yield call(friendService.getOutRequests, id);
     const friends = res.data;
 
