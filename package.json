@@ -9,6 +9,7 @@
     "prod": "NODE_ENV=production NPM_CONFIG_PRODUCTION=true node --optimize_for_size --max_old_space_size=500 --gc_interval=100 src/index.js | bunyan",
     "build": "webpack --config webpack.prod.js",
     "gen-data": "node generate-data.js",
+    "prod-gen-data": "NODE_ENV=production node generate-data.js",
     "pm2": "pm2-runtime --env development --raw process.json | bunyan",
     "test": "echo \"Error: no test specified\" && exit 1",
     "docker-build": "docker-compose build --no-cache",
