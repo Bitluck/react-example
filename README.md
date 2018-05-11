@@ -34,6 +34,8 @@ This repo contains the study project of social network for TT Developers School 
 
 `npm run gen-data` : script for generating test data
 
+[before generating data need to start the server 🚀]
+
 ### Environment variables for generating test data
 * `USERS_COUNT`          : count of users (default: 10)
 * `POSTS_PER_USER_COUNT` : count of posts for each user (default: in interval 3-21)
