@@ -17,7 +17,7 @@
     "docker-clean": "docker-compose stop && docker-compose down --rmi local --volumes --remove-orphans",
     "eslint": "eslint --color ./",
     "postinstall": "cd front && npm i && cd ..",
-    "heroku-postbuild": "npm run build && npm prod-gen-data",
+    "heroku-postbuild": "npm run build && npm run prod-gen-data",
     "precommit": "npm run eslint"
   },
   "repository": {
