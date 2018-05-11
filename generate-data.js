@@ -195,6 +195,7 @@ sequelize.sync().then(async () => {
     } catch (err) {
       logger.error(err);
     } finally {
+      logger.info('user already exists');
       user = await generateUser();
       newUser = await User.create(user);
       users.push(newUser);
