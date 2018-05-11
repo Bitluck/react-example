@@ -73,15 +73,15 @@ const generateUserProfile = (userId) => {
 
 // login user to POST /api/auth/signin
 // to POST /api/posts/
-const generatePost = async (userId, maxTextLength = 2048) => {
+const generatePost = async (userId, lastPost = false, maxTextLength = 2048) => {
   let text = generatePostText(maxTextLength);
   let picture = null;
 
   if (text === '') {
-    picture = await generatePostPicture();
+    picture = await generatePostPicture(lastPost);
   } else {
     picture = fakerator.random.boolean()
-      ? await generatePostPicture()
+      ? await generatePostPicture(lastPost)
       : null;
   }
 
@@ -105,7 +105,7 @@ const generatePostText = (maxTextLength = 2048) => {
   return text;
 }
 
-const generatePostPicture = async () => {
+const generatePostPicture = async (lastPost = false) => {
   const pictureName = fakerator.random.hex(20) + '.jpeg';
   const height = fakerator.random.number(100, 1000);
   const width = fakerator.random.number(height / 2, 1000);
@@ -122,6 +122,9 @@ const generatePostPicture = async () => {
     .then(res => {
       picture.on('finish', () => {
         logger.info('pipe write end');
+        if(lastPost) {
+          process.exit(0)
+        }
       });
       result = '/img/posts/' + pictureName;
       res.pipe(picture);
@@ -193,9 +196,8 @@ sequelize.sync().then(async () => {
       newUser = await User.create(user);
       users.push(newUser);
     } catch (err) {
+      logger.info(`user ${user.login} already exists`);
       logger.error(err);
-    } finally {
-      logger.info('user already exists');
       user = await generateUser();
       newUser = await User.create(user);
       users.push(newUser);
@@ -216,7 +218,7 @@ sequelize.sync().then(async () => {
   for (let i = 0; i < users.length; ++i) {
     const postsCount = fakerator.random.number(postsPerUserCount + 3);
     for (let j = 0; j < postsCount; ++j) {
-      const post = await generatePost(users[i].id);
+      const post = await generatePost(users[i].id, i === users.length-1 && j === postsCount-1);
 
       const newPost = await Post.create(post);
       posts.push(newPost);
