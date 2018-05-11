@@ -12,7 +12,7 @@ This repo contains the study project of social network for TT Developers School 
 # How run project
 
 ## Heroku
-[Project on heroku](https://tt-school-project-template.herokuapp.com/) ( ⚠ recommended use VPN or proxy, 'cause Heroku may not be available)
+[Project on heroku](https://tt-school-aschukin.herokuapp.com/) ( ⚠ recommended use VPN or proxy, 'cause Heroku may not be available)
 
 ### Test user
 * login: test
