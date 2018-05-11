@@ -4,7 +4,7 @@
   "description": "Training project for tt sunday school",
   "main": "index.js",
   "scripts": {
-    "start": "npm run prod",
+    "start": "npm run dev",
     "dev": "NODE_ENV=development node src/index.js | bunyan",
     "prod": "NODE_ENV=production NPM_CONFIG_PRODUCTION=true node --optimize_for_size --max_old_space_size=500 --gc_interval=100 src/index.js | bunyan",
     "build": "webpack --config webpack.prod.js",
