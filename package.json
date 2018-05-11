@@ -1,7 +1,7 @@
 {
-  "name": "project-template",
+  "name": "social-network",
   "version": "1.0.0",
-  "description": "",
+  "description": "Training project for tt sunday school",
   "main": "index.js",
   "scripts": {
     "start": "npm run prod",
@@ -21,11 +21,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/ttschool/project-template.git"
+    "url": "git+https://online-school.thumbtack.ru/aschukin/sunday-school.git"
   },
-  "author": "",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/ttschool/project-template#readme",
+  "author": "Bitluck",
+  "license": "MIT",
+  "homepage": "https://tt-school-aschukin.herokuapp.com/",
   "dependencies": {
     "babel-core": "^6.26.0",
     "bcrypt": "^1.0.3",
