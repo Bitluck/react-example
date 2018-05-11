@@ -35,8 +35,8 @@ This repo contains the study project of social network for TT Developers School 
 `npm run gen-data` : script for generating test data
 
 ### Environment variables for generating test data
-* `USERS_COUNT`          : count of users (default: 20)
-* `POSTS_PER_USER_COUNT` : count of posts for each user (default: in interval 7-32)
+* `USERS_COUNT`          : count of users (default: 10)
+* `POSTS_PER_USER_COUNT` : count of posts for each user (default: in interval 3-21)
 * `RELATIONS_COUNT`      : count of friend relations (default: (`USERS_COUNT` * (`USERS_COUNT` - 1) / 3) )
 * `ONLY_KITTENS`         : generating picture for posts with only kittens :) (default: false)
 

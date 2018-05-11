@@ -25,8 +25,8 @@ try {
   }
 }
 
-const usersCount = process.env.USERS_COUNT || 20;
-const postsPerUserCount = process.env.POSTS_PER_USER_COUNT || 25;
+const usersCount = process.env.USERS_COUNT || 10;
+const postsPerUserCount = process.env.POSTS_PER_USER_COUNT || 18;
 const relationsCount = process.env.RELATIONS_COUNT
                      ? process.env.RELATIONS_COUNT % (usersCount * (usersCount - 1) / 2)
                      : Math.ceil(usersCount * (usersCount - 1) / 3);
@@ -216,7 +216,7 @@ sequelize.sync().then(async () => {
   }
 
   for (let i = 0; i < users.length; ++i) {
-    const postsCount = fakerator.random.number(postsPerUserCount + 7);
+    const postsCount = fakerator.random.number(postsPerUserCount + 3);
     for (let j = 0; j < postsCount; ++j) {
       const post = await generatePost(users[i].id, i === users.length-1 && j === postsCount-1);
 
