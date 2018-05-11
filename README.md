@@ -1,44 +1,41 @@
 # TT Developers School project template
 
-This repo contains the template of the project for TT Developers School 2017-2018.
+This repo contains the study project of social network for TT Developers School 2017-2018.
 
-## Requirements:
-1. Node v8.9.x
-2. NPM v5.5.1
+## Project features:
+1. Authentication (register/login);
+2. Make friends;
+3. See user profiles;
+3. Add posts;
+4. See feed with friends posts.
 
-## Repo contains:
-1. docker-compose file with postgres db. You can change db_user and db_password in docker-compose.yml file.
-2. Instruction for Heroku integration.
+# How run project
 
-## How to use Docker:
-* npm run docker-build: to download images if it's still not exist
-* npm run docker-start: start postgres and redis within docker containers
-* npm run docker-clean: turn containers off.
+## Heroku
+[Project on heroku](https://tt-school-project-template.herokuapp.com/)
 
-## How to set up Heroku:
-You can find official guide here: [here](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
+## Local
 
-### Steps:
-1. Register account
-2. Install heroku-cli
-3. Open you project folder and execute "heroku create"
-4. Use dev mode: "heroku config:set NPM_CONFIG_PRODUCTION=false"
-5. Use git push heroku master to deploy your app.
-6. Execute "heroku ps:scale web=1" to make sure your service has been deployed
-7. Rename your app by "heroku apps:rename newname". Use the app name like "tt-school-vvinogradov".
-8. You can find more details in the link provided above.
+### How to use Docker:
+* `npm run docker-build` : to download images if it's still not exist
+* `npm run docker-start` : start postgres and redis within docker containers
+* `npm run docker-clean` : turn containers off.
 
-After push, you will be able to use dev version of your app at URL like [https://tt-school-project-template.herokuapp.com/](https://tt-school-project-template.herokuapp.com/)
+### Scripts
+* `npm run start` : call `npm run dev`
+* `npm run dev`   : for local run project in development environment
+* `npm run pm2`   : for run project with PM2
 
-### Some tips:
-1. To login under SSH to the heroku: "heroku run bash"
-2. To get some logs from heroku: "heroku logs --tail"
+# Generating test data
 
-### Add Postgres SQL to your project:
-1. Install PG addon: "heroku addons:create heroku-postgresql:hobby-dev"
-2. Check if it's working: "heroku pg:info"
-3. Get db credentials: "heroku  pg:credentials:url". You can use it to connect to the db from your local environment or from any GUI software.
-This command will return connection URL like "postgres://username:password@host:port/db_name"
+`npm run gen-data` : script for generating test data
 
-You can find official doc [here](https://devcenter.heroku.com/articles/heroku-postgresql)
+### Environment variables for generating test data
+* `USERS_COUNT`          : count of users (default: 10)
+* `POSTS_PER_USER_COUNT` : count of posts for each user (default: in interval 3-25)
+* `RELATIONS_COUNT`      : count of friend relations (default: (`USERS_COUNT` * (`USERS_COUNT` - 1) / 4) )
+* `ONLY_KITTENS`         : generating picture for posts with only kittens :) (default: false)
 
+### Test user after generating
+* login: test
+* password: test
